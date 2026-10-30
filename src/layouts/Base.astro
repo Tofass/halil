@@ -1,0 +1,232 @@
+---
+import "../styles/global.css";
+import Icon from "../components/Icon.astro";
+import { nav, socials, TG_LINK, url } from "../data/site";
+
+interface Props { title: string; description: string }
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(url("assets/og.jpg"), Astro.site);
+const home = url("/");
+const year = new Date().getFullYear();
+---
+<!doctype html>
+<html lang="ru" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={url("favicon.svg")} />
+    <meta name="theme-color" content="#1d1b19" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="FahriYOS.EDU" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+    />
+    <script is:inline>
+      document.documentElement.classList.remove("no-js");
+      try {
+        const t = localStorage.getItem("fahriyos-theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+      } catch {}
+    </script>
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip" href="#main">К содержанию</a>
+
+    <header class="site-header">
+      <div class="wrap header-row">
+        <a class="brand" href={home} aria-label="FahriYOS.EDU — на главную">
+          <img src={url("assets/mark.webp")} alt="" width="40" height="33" />
+          <span>FahriYOS<b>.EDU</b></span>
+        </a>
+        <nav class="site-nav" id="site-nav" aria-label="Основное меню">
+          {nav.map((n) => <a href={`${home}${n.href}`}>{n.label}</a>)}
+          <a class="btn btn--accent nav-cta" href={`${home}#contacts`}>Консультация</a>
+        </nav>
+        <div class="header-tools">
+          <button class="icon-btn theme-toggle" type="button" aria-label="Сменить тему">
+            <Icon name="moon" class="i-moon" /><Icon name="sun" class="i-sun" />
+          </button>
+          <a class="btn btn--accent header-cta" href={`${home}#contacts`}>Консультация</a>
+          <button class="icon-btn nav-toggle" type="button" aria-label="Меню" aria-expanded="false" aria-controls="site-nav">
+            <Icon name="menu" class="i-open" /><Icon name="close" class="i-close" />
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href={home}>
+            <img src={url("assets/mark.webp")} alt="" width="40" height="33" loading="lazy" />
+            <span>FahriYOS<b>.EDU</b></span>
+          </a>
+          <p>Study &amp; life in Türkiye. Подготовка к TR-YÖS, поступление, документы и переезд.</p>
+        </div>
+        <div>
+          <h3>Разделы</h3>
+          <ul>{nav.map((n) => <li><a href={`${home}${n.href}`}>{n.label}</a></li>)}</ul>
+        </div>
+        <div>
+          <h3>FAQ</h3>
+          <ul>
+            <li><a href={url("faq-admission.html")}>Поступление</a></li>
+            <li><a href={url("faq-tryos.html")}>TR-YÖS</a></li>
+            <li><a href={url("faq-docs.html")}>Документы</a></li>
+            <li><a href={url("faq-who.html")}>Кому подходит</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Мы в соцсетях</h3>
+          <ul class="socials">
+            {socials.map((s) => (
+              <li>
+                <a href={s.href} target="_blank" rel="noopener noreferrer">
+                  <span class="social-ico" style={`--ico:url(${url(`assets/icons/${s.icon}.svg`)})`}></span>
+                  {s.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <p>© {year} FahriYOS.EDU</p>
+        <p>Зачисление не гарантируется: решение принимает университет.</p>
+      </div>
+    </footer>
+
+    <a class="tg-float" href={TG_LINK} target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram">
+      <Icon name="send" />
+    </a>
+
+    <script>
+      const root = document.documentElement;
+      const body = document.body;
+
+      document.querySelector(".theme-toggle")?.addEventListener("click", () => {
+        const dark = root.dataset.theme
+          ? root.dataset.theme === "dark"
+          : matchMedia("(prefers-color-scheme: dark)").matches;
+        const next = dark ? "light" : "dark";
+        root.dataset.theme = next;
+        try { localStorage.setItem("fahriyos-theme", next); } catch {}
+      });
+
+      const toggle = document.querySelector<HTMLButtonElement>(".nav-toggle");
+      const setNav = (open: boolean) => {
+        body.classList.toggle("nav-open", open);
+        toggle?.setAttribute("aria-expanded", String(open));
+      };
+      toggle?.addEventListener("click", () => setNav(!body.classList.contains("nav-open")));
+      document.querySelectorAll("#site-nav a").forEach((a) => a.addEventListener("click", () => setNav(false)));
+      addEventListener("keydown", (e) => { if (e.key === "Escape") setNav(false); });
+
+      const onScroll = () => body.classList.toggle("scrolled", scrollY > 8);
+      addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      const items = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const io = new IntersectionObserver(
+          (entries) => entries.forEach((e) => {
+            if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
+          }),
+          { threshold: 0.1, rootMargin: "0px 0px -6% 0px" },
+        );
+        items.forEach((el) => io.observe(el));
+      } else {
+        items.forEach((el) => el.classList.add("is-in"));
+      }
+    </script>
+
+    <style>
+      .site-header {
+        position: sticky; top: 0; z-index: 50; height: var(--header-h);
+        border-bottom: 1px solid transparent; transition: border-color 0.2s ease;
+      }
+      /* Blur lives on a pseudo-element: backdrop-filter on the header itself would trap the fixed mobile menu inside it. */
+      .site-header::before {
+        content: ""; position: absolute; inset: 0; z-index: -1;
+        background: color-mix(in srgb, var(--bg) 82%, transparent);
+        backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px);
+      }
+      :global(body.scrolled) .site-header { border-bottom-color: var(--line); }
+      .header-row { height: 100%; display: flex; align-items: center; gap: 24px; }
+      .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--serif); font-size: 20px; font-weight: 700; white-space: nowrap; }
+      .brand img { border-radius: 8px; background: #f3ece3; padding: 3px; }
+      .brand b { color: var(--accent); }
+      .site-nav { display: flex; align-items: center; gap: 26px; margin-left: auto; }
+      .site-nav a:not(.btn) { text-decoration: none; font-size: 14px; font-weight: 600; color: var(--muted); transition: color 0.2s; }
+      .site-nav a:not(.btn):hover { color: var(--ink); }
+      .nav-cta { display: none; }
+      .header-tools { display: flex; align-items: center; gap: 8px; }
+      .header-cta { min-height: 42px; padding: 0 18px; font-size: 14px; }
+      .icon-btn { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: transparent; cursor: pointer; }
+      .icon-btn :global(svg) { width: 19px; height: 19px; }
+      :global(.i-sun), :global(.i-close) { display: none; }
+      :global([data-theme="dark"]) :global(.i-sun) { display: block; }
+      :global([data-theme="dark"]) :global(.i-moon) { display: none; }
+      @media (prefers-color-scheme: dark) {
+        :global(:root:not([data-theme="light"])) :global(.i-sun) { display: block; }
+        :global(:root:not([data-theme="light"])) :global(.i-moon) { display: none; }
+      }
+      .nav-toggle { display: none; }
+
+      @media (max-width: 960px) {
+        .nav-toggle { display: grid; }
+        .header-cta { display: none; }
+        .header-tools { margin-left: auto; }
+        .site-nav {
+          position: fixed; inset: var(--header-h) 0 0 0; margin: 0; z-index: 40;
+          flex-direction: column; align-items: stretch; gap: 0; padding: 12px var(--gutter) 32px;
+          background: var(--bg); overflow-y: auto;
+          opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+        }
+        .site-nav a:not(.btn) { font-family: var(--serif); font-size: 28px; color: var(--ink); padding: 14px 0; border-bottom: 1px solid var(--line); }
+        .nav-cta { display: inline-flex; margin-top: 24px; }
+        :global(body.nav-open) .site-nav { opacity: 1; visibility: visible; transform: none; }
+        :global(body.nav-open) { overflow: hidden; }
+        :global(body.nav-open) :global(.i-open) { display: none; }
+        :global(body.nav-open) :global(.i-close) { display: block; }
+      }
+
+      .site-footer { background: var(--dark); color: var(--dark-ink); padding: 64px 0 28px; }
+      .footer-grid { display: grid; gap: 36px; grid-template-columns: 1.6fr repeat(3, 1fr); }
+      .footer-brand p { margin-top: 14px; max-width: 320px; color: color-mix(in srgb, var(--dark-ink) 65%, transparent); font-size: 14px; }
+      .site-footer h3 { font-family: var(--sans); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: color-mix(in srgb, var(--dark-ink) 55%, transparent); margin-bottom: 14px; }
+      .site-footer ul { list-style: none; display: grid; gap: 10px; }
+      .site-footer ul a { text-decoration: none; font-size: 15px; display: inline-flex; align-items: center; gap: 10px; }
+      .site-footer ul a:hover { color: var(--accent); }
+      .social-ico { width: 18px; height: 18px; background: currentColor; -webkit-mask: var(--ico) center / contain no-repeat; mask: var(--ico) center / contain no-repeat; }
+      .footer-bottom { margin-top: 48px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 13px; color: color-mix(in srgb, var(--dark-ink) 55%, transparent); }
+      @media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } }
+
+      .tg-float {
+        position: fixed; right: 18px; bottom: 18px; z-index: 45; width: 56px; height: 56px; border-radius: 50%;
+        display: grid; place-items: center; background: #2aa1da; color: #fff; box-shadow: 0 10px 28px -8px rgba(0, 0, 0, 0.45);
+        transition: transform 0.2s;
+      }
+      .tg-float:hover { transform: scale(1.06); }
+      .tg-float :global(svg) { width: 26px; height: 26px; margin-left: -2px; }
+    </style>
+  </body>
+</html>

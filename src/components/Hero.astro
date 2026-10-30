@@ -1,0 +1,60 @@
+---
+import Icon from "./Icon.astro";
+import { url } from "../data/site";
+
+const chips = ["Подготовка к TR-YÖS", "Подача в университеты", "Денклик и ВНЖ", "Жильё и переезд"];
+---
+<section class="hero" aria-labelledby="hero-title">
+  <picture class="hero-bg">
+    <source media="(max-width: 760px)" srcset={url("assets/hero-960.webp")} />
+    <img src={url("assets/hero.webp")} alt="Стамбул на закате: Галатский мост и мечеть Йени-Джами" width="1920" height="1200" fetchpriority="high" />
+  </picture>
+  <div class="wrap hero-inner">
+    <p class="hero-kicker">Поступление в университеты Турции</p>
+    <h1 id="hero-title">От мечты о Турции — <em>до студенческого билета</em></h1>
+    <p class="hero-sub">
+      Помогаем подготовиться к TR-YÖS, выбрать университет, собрать документы и переехать. Можно взять один шаг или весь путь целиком.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn--accent" href="#contacts">Получить консультацию <Icon name="arrow" /></a>
+      <a class="btn btn--ghost" href="#quiz">Подобрать пакет</a>
+    </div>
+    <ul class="hero-chips">
+      {chips.map((c) => <li>{c}</li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative; isolation: isolate; color: #fffaf3;
+    min-height: min(860px, calc(100svh - var(--header-h)));
+    display: flex; align-items: flex-end;
+    margin-top: calc(var(--header-h) * -1); padding-top: var(--header-h);
+  }
+  .hero-bg, .hero-bg img { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; }
+  .hero-bg img { object-fit: cover; object-position: 60% 40%; }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background:
+      linear-gradient(180deg, rgba(20, 14, 10, 0.55) 0%, rgba(20, 14, 10, 0.1) 30%, rgba(20, 14, 10, 0.35) 55%, rgba(20, 14, 10, 0.9) 100%),
+      linear-gradient(90deg, rgba(20, 14, 10, 0.55) 0%, transparent 70%);
+  }
+  .hero-inner { padding-top: 80px; padding-bottom: clamp(40px, 7vw, 84px); }
+  .hero-kicker {
+    display: inline-block; margin-bottom: 22px; padding: 8px 14px; border-radius: 999px;
+    background: rgba(255, 250, 243, 0.14); border: 1px solid rgba(255, 250, 243, 0.25);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    font-size: 13px; font-weight: 600;
+  }
+  h1 { font-size: clamp(38px, 7.2vw, 84px); max-width: 15ch; line-height: 1.02; }
+  h1 em { font-style: italic; color: #f2b27c; }
+  .hero-sub { margin-top: 22px; max-width: 560px; font-size: clamp(16px, 1.8vw, 19px); color: rgba(255, 250, 243, 0.85); }
+  .hero-cta { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero-cta .btn--accent { background: #d9773a; color: #1d1b19; }
+  .hero-cta .btn--accent:hover { background: #e6874a; }
+  .hero-chips { list-style: none; margin-top: 44px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 14px; color: rgba(255, 250, 243, 0.8); }
+  .hero-chips li { display: inline-flex; align-items: center; gap: 8px; }
+  .hero-chips li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #f2b27c; }
+  @media (max-width: 560px) { .hero-cta .btn { flex: 1 1 100%; } }
+</style>

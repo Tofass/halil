@@ -1,0 +1,136 @@
+---
+import Icon from "./Icon.astro";
+import { requestOptions } from "../data/packages";
+import { TG_LINK, TG_USER, url } from "../data/site";
+---
+<section class="section" id="contacts" aria-labelledby="contacts-title">
+  <div class="wrap contact card reveal">
+    <div class="contact-visual" style={`--img:url(${url("assets/galata.webp")})`}>
+      <span class="eyebrow">Контакты</span>
+      <h2 id="contacts-title">Получите бесплатную консультацию</h2>
+      <p>Расскажите о целях — подскажем маршрут, сроки и нужные шаги. Отвечаем в Telegram.</p>
+      <a class="btn btn--light" href={TG_LINK} target="_blank" rel="noopener noreferrer">
+        <Icon name="send" /> @{TG_USER}
+      </a>
+    </div>
+
+    <form class="contact-form" id="contact-form" novalidate data-tg={TG_USER}>
+      <label>
+        <span>Пакет или услуга</span>
+        <select name="package" required>
+          <option value="">Выберите вариант</option>
+          <option value="consult">Просто консультация</option>
+          {requestOptions.map((o) => (
+            <option value={o.id} data-title={o.label} data-price={o.price} data-summary={o.summary}>{o.label} · {o.price}</option>
+          ))}
+        </select>
+      </label>
+      <div class="row">
+        <label>
+          <span>Имя</span>
+          <input name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" />
+        </label>
+        <label>
+          <span>Телефон или Telegram *</span>
+          <input name="contact" type="text" autocomplete="tel" placeholder="+7… или @username" required />
+        </label>
+      </div>
+      <label>
+        <span>Сообщение</span>
+        <textarea name="message" rows="4" placeholder="Страна, класс, желаемая специальность, вопросы"></textarea>
+      </label>
+      <button class="btn btn--accent btn--block" type="submit"><Icon name="send" /> Отправить заявку в Telegram</button>
+      <p class="form-status" role="status" hidden></p>
+      <p class="form-hint muted">Откроется Telegram с готовым текстом — нажмите «Отправить» в мессенджере.</p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("#contact-form")!;
+  const select = form.querySelector<HTMLSelectElement>("select")!;
+  const message = form.querySelector<HTMLTextAreaElement>("textarea")!;
+  const status = form.querySelector<HTMLElement>(".form-status")!;
+
+  // Any "choose" link on the page pre-selects the option (and may prefill a note).
+  document.addEventListener("click", (e) => {
+    const el = (e.target as HTMLElement).closest<HTMLElement>("[data-pack]");
+    if (!el) return;
+    select.value = el.dataset.pack!;
+    if (el.dataset.note && !message.value.trim()) message.value = el.dataset.note;
+  });
+
+  const show = (text: string, kind: "ok" | "err") => {
+    status.hidden = false;
+    status.dataset.kind = kind;
+    status.textContent = text;
+  };
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const name = String(data.get("name") || "").trim();
+    const contact = String(data.get("contact") || "").trim();
+    const msg = String(data.get("message") || "").trim();
+    const opt = select.selectedOptions[0];
+
+    if (!select.value) {
+      show("Выберите пакет или услугу.", "err");
+      select.focus();
+      return;
+    }
+    if (!contact) {
+      show("Укажите телефон или Telegram, чтобы мы могли ответить.", "err");
+      form.querySelector<HTMLInputElement>("[name='contact']")!.focus();
+      return;
+    }
+
+    const lines = [
+      "Здравствуйте, FahriYOS.EDU!",
+      name && `Меня зовут ${name}.`,
+      opt.dataset.title
+        ? `Интересует: ${opt.dataset.title} (${opt.dataset.price}).`
+        : "Хочу консультацию по поступлению.",
+      opt.dataset.summary,
+      msg,
+      `Мой контакт: ${contact}`,
+    ].filter(Boolean);
+
+    window.open(`https://t.me/${form.dataset.tg}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener");
+    show("Telegram открыт с текстом заявки. Нажмите «Отправить» в мессенджере, чтобы мы её получили.", "ok");
+  });
+</script>
+
+<style>
+  .contact { display: grid; grid-template-columns: 1fr 1.15fr; overflow: hidden; padding: 0; box-shadow: var(--shadow); }
+  .contact-visual {
+    position: relative; isolation: isolate; color: #fffaf3; padding: clamp(28px, 4vw, 48px);
+    display: flex; flex-direction: column; justify-content: flex-end; gap: 14px; align-items: flex-start; min-height: 420px;
+    background: linear-gradient(180deg, rgba(20, 14, 10, 0.15), rgba(20, 14, 10, 0.88)), var(--img) center / cover;
+  }
+  .contact-visual .eyebrow { color: #f2b27c; }
+  .contact-visual h2 { font-size: clamp(28px, 3.6vw, 40px); }
+  .contact-visual p { color: rgba(255, 250, 243, 0.82); max-width: 380px; }
+  .contact-visual .btn { margin-top: 8px; }
+
+  .contact-form { padding: clamp(24px, 4vw, 48px); display: grid; gap: 16px; align-content: start; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  label { display: grid; gap: 6px; }
+  label span { font-size: 13px; font-weight: 700; }
+  input, select, textarea {
+    width: 100%; font: inherit; font-size: 16px; color: var(--ink); background: var(--bg);
+    border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 14px; min-height: 48px;
+  }
+  textarea { resize: vertical; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+  .form-status { padding: 12px 14px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; }
+  .form-status[data-kind="ok"] { background: color-mix(in srgb, #2e8b57 15%, transparent); color: color-mix(in srgb, #2e8b57 80%, var(--ink)); }
+  .form-status[data-kind="err"] { background: color-mix(in srgb, #c0392b 14%, transparent); color: color-mix(in srgb, #c0392b 80%, var(--ink)); }
+  .form-hint { font-size: 13px; }
+
+  @media (max-width: 860px) {
+    .contact { grid-template-columns: 1fr; }
+    .contact-visual { min-height: 300px; }
+  }
+  @media (max-width: 520px) { .row { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,66 @@
+---
+import Base from "../layouts/Base.astro";
+import FaqList from "../components/FaqList.astro";
+import Icon from "../components/Icon.astro";
+import { faq, type FaqCategory } from "../data/faq";
+import { TG_LINK, url } from "../data/site";
+
+export function getStaticPaths() {
+  return faq.map((c) => ({ params: { faq: c.slug }, props: { cat: c } }));
+}
+
+const { cat } = Astro.props as { cat: FaqCategory };
+const others = faq.filter((c) => c.slug !== cat.slug);
+const flat = (b: FaqCategory["items"][number]["a"]) =>
+  b.map((x) => (typeof x === "string" ? x : [x.lead, ...x.list].filter(Boolean).join(" "))).join(" ");
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: cat.items.map((i) => ({
+    "@type": "Question",
+    name: i.q,
+    acceptedAnswer: { "@type": "Answer", text: flat(i.a) },
+  })),
+};
+---
+<Base title={`${cat.title} — FAQ | FahriYOS.EDU`} description={`${cat.intro} Ответы на частые вопросы о поступлении в Турцию.`}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <section class="section faq-page">
+    <div class="wrap faq-page-grid">
+      <div>
+        <a class="back" href={`${url("/")}#faq`}>← Все вопросы</a>
+        <div class="section-head">
+          <span class="eyebrow">FAQ</span>
+          <h1>{cat.title}</h1>
+          <p>{cat.intro}</p>
+        </div>
+        <FaqList items={cat.items} />
+      </div>
+      <aside class="faq-aside">
+        <div class="card ask">
+          <h2>Не нашли ответ?</h2>
+          <p class="muted">Напишите нам — разберём вашу ситуацию на бесплатной консультации.</p>
+          <a class="btn btn--accent btn--block" href={TG_LINK} target="_blank" rel="noopener noreferrer"><Icon name="send" /> Написать в Telegram</a>
+        </div>
+        <nav class="card others" aria-label="Другие разделы FAQ">
+          <h2>Другие вопросы</h2>
+          {others.map((o) => <a href={url(`${o.slug}.html`)}>{o.title} <Icon name="arrow" /></a>)}
+        </nav>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .faq-page { padding-top: clamp(32px, 6vw, 64px); }
+  .faq-page-grid { display: grid; grid-template-columns: 1fr 320px; gap: clamp(28px, 4vw, 56px); align-items: start; }
+  .back { display: inline-block; margin-bottom: 24px; font-weight: 700; font-size: 14px; color: var(--accent); text-decoration: none; }
+  h1 { font-size: clamp(32px, 5vw, 52px); }
+  .faq-aside { position: sticky; top: calc(var(--header-h) + 20px); display: grid; gap: 16px; }
+  .ask, .others { padding: 24px; display: grid; gap: 12px; }
+  .faq-aside h2 { font-family: var(--sans); font-size: 18px; }
+  .others a { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); text-decoration: none; font-weight: 600; }
+  .others a:hover { color: var(--accent); }
+  .others :global(svg) { width: 16px; height: 16px; color: var(--accent); }
+  @media (max-width: 860px) { .faq-page-grid { grid-template-columns: 1fr; } .faq-aside { position: static; } }
+</style>

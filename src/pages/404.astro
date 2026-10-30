@@ -1,0 +1,19 @@
+---
+import Base from "../layouts/Base.astro";
+import { url } from "../data/site";
+---
+<Base title="Страница не найдена | FahriYOS.EDU" description="Страница не найдена.">
+  <section class="section">
+    <div class="wrap nf">
+      <span class="eyebrow">404</span>
+      <h1>Такой страницы нет</h1>
+      <p class="muted">Возможно, ссылка устарела. Начните с главной.</p>
+      <a class="btn btn--accent" href={url("/")}>На главную</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { display: grid; gap: 16px; justify-items: start; min-height: 40vh; align-content: center; }
+  h1 { font-size: clamp(32px, 5vw, 52px); }
+</style>

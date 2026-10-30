@@ -1,0 +1,105 @@
+---
+import { steps } from "../data/content";
+---
+<section class="section" id="path" aria-labelledby="path-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Как мы работаем</span>
+      <h2 id="path-title">Путь от первой консультации до жизни в Турции</h2>
+      <p>Пять шагов. На каждом видно, что делаете вы и в чём помогаем мы.</p>
+    </div>
+
+    <div class="path reveal">
+      <div class="path-tabs" role="tablist" aria-label="Шаги">
+        {steps.map((s, i) => (
+          <button
+            class="path-tab"
+            type="button"
+            role="tab"
+            id={`step-tab-${i}`}
+            aria-controls={`step-panel-${i}`}
+            aria-selected={i === 0 ? "true" : "false"}
+            tabindex={i === 0 ? 0 : -1}
+          >
+            <span class="path-num">{String(i + 1).padStart(2, "0")}</span>
+            <span class="path-title">{s.title}</span>
+            <span class="path-short">{s.short}</span>
+          </button>
+        ))}
+      </div>
+
+      {steps.map((s, i) => (
+        <div class="path-panel card" role="tabpanel" id={`step-panel-${i}`} aria-labelledby={`step-tab-${i}`} hidden={i !== 0}>
+          <div class="path-text">
+            <p class="eyebrow">Шаг {i + 1}</p>
+            <h3>{s.title}</h3>
+            <p class="muted">{s.detail}</p>
+          </div>
+          <dl class="path-split">
+            <div><dt>Вы</dt><dd>{s.you}</dd></div>
+            <div class="we"><dt>Мы</dt><dd>{s.we}</dd></div>
+          </dl>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>(".path-tab")];
+  const select = (i: number, focus = false) => {
+    tabs.forEach((t, j) => {
+      const on = i === j;
+      t.setAttribute("aria-selected", String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(`step-panel-${j}`)!.hidden = !on;
+    });
+    if (focus) tabs[i].focus();
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => select(i));
+    t.addEventListener("keydown", (e) => {
+      const d = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      select((i + d + tabs.length) % tabs.length, true);
+    });
+  });
+</script>
+
+<style>
+  .path { display: grid; gap: 20px; }
+  .path-tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; position: relative; }
+  .path-tabs::before { content: ""; position: absolute; left: 0; right: 0; top: 23px; height: 2px; background: var(--line); }
+  .path-tab {
+    position: relative; text-align: left; background: none; border: 0; cursor: pointer;
+    padding: 0 16px 16px 0; display: grid; gap: 6px; align-content: start;
+  }
+  .path-num {
+    width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--bg); border: 2px solid var(--line); font-weight: 800; font-size: 14px; color: var(--muted);
+    transition: all 0.25s ease; margin-bottom: 8px;
+  }
+  .path-title { font-weight: 800; font-size: 17px; }
+  .path-short { font-size: 14px; color: var(--muted); }
+  .path-tab:hover .path-num { border-color: var(--accent); color: var(--accent); }
+  .path-tab[aria-selected="true"] .path-num { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+
+  .path-panel { padding: clamp(24px, 4vw, 44px); display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(24px, 4vw, 56px); box-shadow: var(--shadow); }
+  .path-panel[hidden] { display: none; }
+  .path-text { display: grid; gap: 14px; align-content: start; }
+  .path-text h3 { font-family: var(--serif); font-size: clamp(26px, 3vw, 34px); }
+  .path-split { margin: 0; display: grid; gap: 12px; align-content: start; }
+  .path-split div { padding: 18px 20px; border-radius: var(--radius-sm); background: var(--bg-alt); }
+  .path-split .we { background: var(--accent-soft); }
+  .path-split dt { font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+  .path-split dd { margin: 0; font-weight: 600; }
+
+  @media (max-width: 860px) {
+    .path-tabs { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr); overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 calc(var(--gutter) * -1); padding: 0 var(--gutter); scrollbar-width: none; }
+    .path-tabs::-webkit-scrollbar { display: none; }
+    .path-tabs::before { left: var(--gutter); right: auto; width: calc(150px * 5); }
+    .path-tab { scroll-snap-align: start; }
+    .path-panel { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tofass.github.io/halil/sitemap-index.xml
