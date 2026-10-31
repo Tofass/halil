@@ -144,6 +144,12 @@ const year = new Date().getFullYear();
       document.querySelectorAll("#site-nav a").forEach((a) => a.addEventListener("click", () => setNav(false)));
       addEventListener("keydown", (e) => { if (e.key === "Escape") setNav(false); });
 
+      // On phones the floating Telegram button hides while the contact form is on screen, so it cannot cover the submit button.
+      const contacts = document.getElementById("contacts");
+      if (contacts && "IntersectionObserver" in window) {
+        new IntersectionObserver(([e]) => body.classList.toggle("tg-hidden", e.isIntersecting), { threshold: 0.15 }).observe(contacts);
+      }
+
       const onScroll = () => body.classList.toggle("scrolled", scrollY > 8);
       addEventListener("scroll", onScroll, { passive: true });
       onScroll();
@@ -175,7 +181,7 @@ const year = new Date().getFullYear();
       }
       :global(body.scrolled) .site-header { border-bottom-color: var(--line); }
       .header-row { height: 100%; display: flex; align-items: center; gap: var(--space-300); }
-      .brand { display: inline-flex; align-items: center; gap: var(--space-75); text-decoration: none; font-family: var(--serif); font-size: 20px; font-weight: 700; white-space: nowrap; }
+      .brand { display: inline-flex; align-items: center; gap: var(--space-75); text-decoration: none; font-family: var(--serif); font-size: 20px; font-weight: 600; white-space: nowrap; }
       .brand img { border-radius: 8px; background: #f3ece3; padding: var(--space-25); }
       .brand b { color: var(--accent); }
       .site-nav { display: flex; align-items: center; gap: var(--space-300); margin-left: auto; }
@@ -222,7 +228,7 @@ const year = new Date().getFullYear();
       .site-footer ul a:hover { color: var(--accent); }
       .social-ico { width: 18px; height: 18px; background: currentColor; -webkit-mask: var(--ico) center / contain no-repeat; mask: var(--ico) center / contain no-repeat; }
       .footer-bottom { margin-top: var(--space-600); padding-top: var(--space-200); border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-75); font-size: 12px; color: color-mix(in srgb, var(--dark-ink) 55%, transparent); }
-      .footer-legal { display: flex; gap: var(--space-200); }
+      .footer-legal { display: flex; gap: var(--space-200); margin-right: auto; }
       .footer-legal a { text-underline-offset: var(--space-50); }
       .footer-legal a:hover { color: var(--accent); }
       @media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } }
@@ -233,6 +239,10 @@ const year = new Date().getFullYear();
         transition: transform 0.2s;
       }
       .tg-float:hover { transform: scale(1.06); }
+      @media (max-width: 860px) {
+        :global(body.tg-hidden) .tg-float { opacity: 0; pointer-events: none; transform: translateY(var(--space-300)); }
+      }
+      .tg-float { transition: opacity 300ms var(--ease), transform 300ms var(--ease); }
       .tg-float :global(svg) { width: 26px; height: 26px; margin-left: -2px; }
     </style>
   </body>

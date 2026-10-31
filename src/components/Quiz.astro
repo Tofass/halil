@@ -92,10 +92,10 @@ const options = Object.fromEntries(requestOptions.map((o) => [o.id, { label: o.l
   .quiz-grid { display: grid; grid-template-columns: 1fr 1.25fr; gap: var(--space-300); align-items: start; }
   .quiz { background: var(--surface); color: var(--ink); padding: var(--space-300); display: grid; gap: var(--space-300); }
   fieldset { border: 0; padding: 0; margin: 0; }
-  legend { font-weight: 800; font-size: 16px; margin-bottom: var(--space-100); display: flex; align-items: center; gap: var(--space-75); }
+  legend { font-weight: 600; font-size: 16px; margin-bottom: var(--space-100); display: flex; align-items: center; gap: var(--space-75); }
   legend span { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: var(--accent-ink); font-size: 12px; }
   .opts { display: flex; flex-wrap: wrap; gap: var(--space-75); }
-  .opt { cursor: pointer; }
+  .opt { cursor: pointer; position: relative; }
   .opt input { position: absolute; opacity: 0; pointer-events: none; }
   .opt span { display: inline-block; padding: var(--space-75) var(--space-200); border-radius: 999px; border: 1px solid var(--line); font-size: 14px; font-weight: 600; transition: all 0.15s; }
   .opt:hover span { border-color: var(--accent); }
@@ -104,7 +104,7 @@ const options = Object.fromEntries(requestOptions.map((o) => [o.id, { label: o.l
   .quiz-result { padding-top: var(--space-300); border-top: 1px solid var(--line); display: grid; gap: var(--space-100); justify-items: start; }
   .quiz-result[hidden] { display: none; }
   .quiz-picks { list-style: none; display: grid; gap: var(--space-75); width: 100%; }
-  .quiz-picks :global(li) { display: flex; justify-content: space-between; gap: var(--space-100); padding: var(--space-100) var(--space-200); border-radius: var(--radius-sm); background: var(--accent-soft); font-weight: 700; }
+  .quiz-picks :global(li) { display: flex; justify-content: space-between; gap: var(--space-100); padding: var(--space-100) var(--space-200); border-radius: var(--radius-sm); background: var(--accent-soft); font-weight: 600; }
   .quiz-picks :global(b) { color: var(--accent); white-space: nowrap; }
   .quiz-note { font-size: 14px; }
   @media (max-width: 860px) { .quiz-grid { grid-template-columns: 1fr; } .section-head { margin-bottom: 0; } }
