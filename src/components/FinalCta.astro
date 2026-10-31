@@ -1,0 +1,18 @@
+---
+import Icon from "./Icon.astro";
+---
+<section class="section section--dark final" aria-labelledby="final-title">
+  <div class="wrap final-inner reveal">
+    <h2 id="final-title">Расскажите о целях, и мы подскажем маршрут</h2>
+    <p>Выберите нужные шаги или весь путь целиком. Состав работ, сроки и оплату уточним на консультации.</p>
+    <a class="btn btn--accent" href="#contacts">Получить консультацию <Icon name="arrow" /></a>
+  </div>
+</section>
+
+<style>
+  .final-inner { display: grid; gap: var(--space-200); justify-items: start; }
+  h2 { max-width: 680px; font-size: 30px; line-height: 36px; }
+  p { max-width: 680px; color: color-mix(in srgb, var(--dark-ink) 72%, transparent); font-size: 18px; line-height: 28px; }
+  .btn { margin-top: var(--space-100); }
+  @media (min-width: 768px) { h2 { font-size: 48px; line-height: 48px; } }
+</style>

@@ -1,0 +1,50 @@
+---
+// Tagline reveal (B11): words go from muted to full colour one by one as they cross a trigger line.
+const text =
+  "От выбора университета до первых недель в Турции мы рядом на каждом шаге. Вы учитесь, а документы, экзамен и переезд берём на себя.";
+const words = text.split(" ");
+---
+<section class="tagline" aria-label="Наш подход">
+  <div class="wrap">
+    <p class="heading-3" data-tagline>
+      {words.map((w, i) => (
+        <>
+          <span class="w">{w}</span>{i < words.length - 1 ? " " : ""}
+        </>
+      ))}
+    </p>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-tagline]");
+  if (root) {
+    const words = [...root.querySelectorAll<HTMLElement>(".w")];
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) {
+      words.forEach((w) => w.classList.add("on"));
+    } else {
+      // A word turns on once it rises above 65% of the viewport height; it never turns off.
+      const io = new IntersectionObserver(
+        (entries) =>
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("on");
+              io.unobserve(e.target);
+            }
+          }),
+        { rootMargin: "0px 0px -35% 0px", threshold: 0 },
+      );
+      words.forEach((w) => io.observe(w));
+    }
+  }
+</script>
+
+<style>
+  .tagline { padding: var(--space-900) 0; }
+  p { max-width: 680px; font-family: var(--serif); }
+  .w { opacity: 0.3; transition: opacity 500ms var(--ease); }
+  .w.on { opacity: 1; }
+  :global(.no-js) .w { opacity: 1; }
+  @media (min-width: 768px) { .tagline { padding: calc(var(--space-900) + var(--space-400)) 0; } }
+</style>

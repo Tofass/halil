@@ -68,31 +68,31 @@ import { steps } from "../data/content";
 </script>
 
 <style>
-  .path { display: grid; gap: 20px; }
+  .path { display: grid; gap: var(--space-200); }
   .path-tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; position: relative; }
   .path-tabs::before { content: ""; position: absolute; left: 0; right: 0; top: 23px; height: 2px; background: var(--line); }
   .path-tab {
     position: relative; text-align: left; background: none; border: 0; cursor: pointer;
-    padding: 0 16px 16px 0; display: grid; gap: 6px; align-content: start;
+    padding: 0 var(--space-200) var(--space-200) 0; display: grid; gap: var(--space-50); align-content: start;
   }
   .path-num {
     width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center;
     background: var(--bg); border: 2px solid var(--line); font-weight: 800; font-size: 14px; color: var(--muted);
-    transition: all 0.25s ease; margin-bottom: 8px;
+    transition: all 0.25s ease; margin-bottom: var(--space-75);
   }
-  .path-title { font-weight: 800; font-size: 17px; }
+  .path-title { font-weight: 800; font-size: 16px; }
   .path-short { font-size: 14px; color: var(--muted); }
   .path-tab:hover .path-num { border-color: var(--accent); color: var(--accent); }
   .path-tab[aria-selected="true"] .path-num { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 
-  .path-panel { padding: clamp(24px, 4vw, 44px); display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(24px, 4vw, 56px); box-shadow: var(--shadow); }
+  .path-panel { padding: var(--space-300); display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--space-300); box-shadow: var(--shadow); }
   .path-panel[hidden] { display: none; }
-  .path-text { display: grid; gap: 14px; align-content: start; }
-  .path-text h3 { font-family: var(--serif); font-size: clamp(26px, 3vw, 34px); }
-  .path-split { margin: 0; display: grid; gap: 12px; align-content: start; }
-  .path-split div { padding: 18px 20px; border-radius: var(--radius-sm); background: var(--bg-alt); }
+  .path-text { display: grid; gap: var(--space-100); align-content: start; }
+  .path-text h3 { font-family: var(--serif); font-size: 24px; }
+  .path-split { margin: 0; display: grid; gap: var(--space-100); align-content: start; }
+  .path-split div { padding: var(--space-200) var(--space-200); border-radius: var(--radius-sm); background: var(--bg-alt); }
   .path-split .we { background: var(--accent-soft); }
-  .path-split dt { font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+  .path-split dt { font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-50); }
   .path-split dd { margin: 0; font-weight: 600; }
 
   @media (max-width: 860px) {

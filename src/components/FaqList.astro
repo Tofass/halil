@@ -29,17 +29,17 @@ const { items } = Astro.props;
 </div>
 
 <style>
-  .faq-list { display: grid; gap: 10px; }
+  .faq-list { display: grid; gap: var(--space-75); }
   .faq-item { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); }
   .faq-item[open] { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
   summary {
-    list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    padding: 18px 20px; font-weight: 700; font-size: 16px;
+    list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: var(--space-200);
+    padding: var(--space-200) var(--space-200); font-weight: 700; font-size: 16px;
   }
   summary::-webkit-details-marker { display: none; }
   :global(.faq-plus) { width: 22px; height: 22px; flex: none; color: var(--accent); transition: transform 0.25s ease; }
   .faq-item[open] :global(.faq-plus) { transform: rotate(45deg); }
-  .faq-a { padding: 0 20px 20px; display: grid; gap: 12px; color: var(--muted); }
-  .faq-lead { color: var(--ink); font-weight: 600; margin-bottom: 6px; }
-  .faq-a ul { padding-left: 20px; display: grid; gap: 4px; }
+  .faq-a { padding: 0 var(--space-200) var(--space-200); display: grid; gap: var(--space-100); color: var(--muted); }
+  .faq-lead { color: var(--ink); font-weight: 600; margin-bottom: var(--space-50); }
+  .faq-a ul { padding-left: var(--space-200); display: grid; gap: var(--space-50); }
 </style>

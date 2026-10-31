@@ -1,0 +1,34 @@
+---
+import Base from "../layouts/Base.astro";
+import { TG_LINK, TG_USER, url } from "../data/site";
+---
+<Base title="Конфиденциальность | FahriYOS.EDU" description="Как сайт FahriYOS.EDU обращается с данными, которые вы вводите в форму заявки.">
+  <section class="section">
+    <div class="wrap legal">
+      <a class="back" href={url("/")}>← На главную</a>
+      <h1>Конфиденциальность</h1>
+      <p class="muted">Коротко о том, что происходит с данными из формы на этом сайте.</p>
+
+      <h2>Что вы вводите</h2>
+      <p>В форме заявки вы указываете пакет или услугу, имя (по желанию), телефон или Telegram и сообщение.</p>
+
+      <h2>Куда это попадает</h2>
+      <p>Сайт не имеет собственного сервера и ничего не сохраняет. После нажатия кнопки открывается Telegram с готовым текстом заявки для <a href={TG_LINK} target="_blank" rel="noopener noreferrer">@{TG_USER}</a>. Данные уходят только если вы сами нажмёте «Отправить» в мессенджере и дальше обрабатываются по правилам Telegram.</p>
+
+      <h2>Что хранится в браузере</h2>
+      <p>Сайт запоминает только выбранную тему оформления (светлая или тёмная) в локальном хранилище браузера. Это не персональные данные, и очистить их можно в настройках браузера.</p>
+
+      <h2>Шрифты</h2>
+      <p>Шрифты загружаются с серверов Google Fonts, поэтому при открытии страницы ваш браузер обращается к ним.</p>
+
+      <p class="muted">Это краткое описание работы сайта, а не юридический документ. Если вам нужна полная редакция, обратитесь по Telegram.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal { max-width: 760px; display: grid; gap: var(--space-200); }
+  .back { font-weight: 600; font-size: 14px; line-height: 20px; color: var(--accent); text-decoration: none; }
+  h2 { font-family: var(--sans); font-size: 20px; line-height: 28px; margin-top: var(--space-200); }
+  a:not(.back) { color: var(--accent); }
+</style>

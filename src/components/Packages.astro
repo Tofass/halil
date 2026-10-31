@@ -56,38 +56,38 @@ import { packages, singleServices } from "../data/packages";
 </section>
 
 <style>
-  .packs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; }
-  .pack { grid-column: span 2; padding: 28px; display: flex; flex-direction: column; gap: 10px; }
+  .packs { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-200); }
+  .pack { grid-column: span 2; padding: var(--space-300); display: flex; flex-direction: column; gap: var(--space-75); }
   .pack:nth-child(n + 4) { grid-column: span 3; }
-  .pack-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .pack-top { display: flex; justify-content: space-between; align-items: center; gap: var(--space-75); }
   .pack-num { font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
-  .pack-badge { font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); }
-  .pack h3 { font-size: 22px; }
+  .pack-badge { font-size: 12px; font-weight: 700; padding: var(--space-50) var(--space-75); border-radius: 999px; background: var(--accent); color: var(--accent-ink); }
+  .pack h3 { font-size: 20px; }
   .pack-tag { font-size: 14px; color: var(--muted); }
-  .pack-price { display: flex; align-items: baseline; gap: 8px; margin: 8px 0 6px; }
-  .pack-price b { font-family: var(--serif); font-size: 44px; line-height: 1; }
-  .pack-price span { color: var(--muted); font-size: 15px; }
+  .pack-price { display: flex; align-items: baseline; gap: var(--space-75); margin: var(--space-75) 0 var(--space-50); }
+  .pack-price b { font-family: var(--serif); font-size: 36px; line-height: 1; }
+  .pack-price span { color: var(--muted); font-size: 14px; }
   .pack-price s { color: var(--muted); font-size: 18px; }
-  .pack ul { list-style: none; display: grid; gap: 8px; margin-bottom: 18px; flex: 1; }
-  .pack li { display: flex; gap: 10px; font-size: 15px; }
-  .pack li :global(svg) { width: 18px; height: 18px; flex: none; margin-top: 3px; color: var(--accent); }
+  .pack ul { list-style: none; display: grid; gap: var(--space-75); margin-bottom: var(--space-200); flex: 1; }
+  .pack li { display: flex; gap: var(--space-75); font-size: 14px; }
+  .pack li :global(svg) { width: 18px; height: 18px; flex: none; margin-top: var(--space-25); color: var(--accent); }
 
   .pack--featured { background: var(--dark); color: var(--dark-ink); border-color: var(--dark); box-shadow: var(--shadow); }
   .pack--featured .pack-tag, .pack--featured .pack-price span, .pack--featured .pack-price s { color: color-mix(in srgb, var(--dark-ink) 60%, transparent); }
   :global([data-theme="dark"]) .pack--featured { border-color: var(--accent); }
   @media (prefers-color-scheme: dark) { :global(:root:not([data-theme="light"])) .pack--featured { border-color: var(--accent); } }
 
-  .singles { margin-top: 18px; padding: 28px; display: grid; grid-template-columns: 1fr 2fr; gap: 24px; align-items: center; }
-  .singles h3 { font-size: 22px; margin-bottom: 6px; }
-  .singles ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .singles { margin-top: var(--space-200); padding: var(--space-300); display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-300); align-items: center; }
+  .singles h3 { font-size: 20px; margin-bottom: var(--space-50); }
+  .singles ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-75); }
   .singles a {
-    display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px;
-    border-radius: var(--radius-sm); background: var(--bg-alt); text-decoration: none; font-size: 15px; font-weight: 600;
+    display: flex; justify-content: space-between; align-items: center; gap: var(--space-100); padding: var(--space-100) var(--space-200);
+    border-radius: var(--radius-sm); background: var(--bg-alt); text-decoration: none; font-size: 14px; font-weight: 600;
     transition: background 0.2s;
   }
   .singles a:hover { background: var(--accent-soft); }
   .singles a b { color: var(--accent); white-space: nowrap; }
-  .packs-note { margin-top: 20px; font-size: 14px; }
+  .packs-note { margin-top: var(--space-200); font-size: 14px; }
 
   @media (max-width: 980px) {
     .packs { grid-template-columns: 1fr 1fr; }

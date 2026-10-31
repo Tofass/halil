@@ -48,26 +48,26 @@ const total = tryos.split.reduce((s, x) => s + x.count, 0);
 </section>
 
 <style>
-  .tryos-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 18px; align-items: start; }
-  .tryos-exam, .tryos-topics { padding: clamp(22px, 3vw, 34px); }
-  .facts { margin: 0 0 28px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .tryos-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--space-200); align-items: start; }
+  .tryos-exam, .tryos-topics { padding: var(--space-300); }
+  .facts { margin: 0 0 var(--space-300); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-100); }
   .facts div { display: flex; flex-direction: column-reverse; }
-  .facts dd { margin: 0; font-family: var(--serif); font-size: clamp(40px, 5vw, 56px); line-height: 1; color: var(--accent); }
-  .facts dt { font-size: 14px; color: var(--muted); margin-top: 6px; }
-  .split { display: flex; gap: 4px; height: 14px; border-radius: 999px; overflow: hidden; }
+  .facts dd { margin: 0; font-family: var(--serif); font-size: 36px; line-height: 1; color: var(--accent); }
+  .facts dt { font-size: 14px; color: var(--muted); margin-top: var(--space-50); }
+  .split { display: flex; gap: var(--space-50); height: 14px; border-radius: 999px; overflow: hidden; }
   .seg-0 { background: var(--accent); }
   .seg-1 { background: color-mix(in srgb, var(--accent) 55%, var(--bg)); }
   .seg-2 { background: color-mix(in srgb, var(--accent) 25%, var(--bg)); }
-  .split-legend { list-style: none; margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; }
-  .split-legend li { display: flex; align-items: center; gap: 8px; }
-  .split-legend i { width: 10px; height: 10px; border-radius: 3px; }
-  .lessons { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line); display: grid; gap: 12px; justify-items: start; }
+  .split-legend { list-style: none; margin-top: var(--space-100); display: flex; flex-wrap: wrap; gap: var(--space-75) var(--space-200); font-size: 14px; }
+  .split-legend li { display: flex; align-items: center; gap: var(--space-75); }
+  .split-legend i { width: 10px; height: 10px; border-radius: 2px; }
+  .lessons { margin-top: var(--space-300); padding-top: var(--space-300); border-top: 1px solid var(--line); display: grid; gap: var(--space-100); justify-items: start; }
   .lessons h3, .tryos-topics h3 { font-size: 20px; }
-  .tryos-topics { display: grid; gap: 20px; }
-  .topic h4 { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-  .topic ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
-  .topic li { font-size: 13px; padding: 5px 10px; border-radius: 999px; background: var(--bg-alt); border: 1px solid var(--line); }
-  .more { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--accent); text-decoration: none; }
+  .tryos-topics { display: grid; gap: var(--space-200); }
+  .topic h4 { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-75); }
+  .topic ul { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-50); }
+  .topic li { font-size: 12px; padding: var(--space-50) var(--space-75); border-radius: 999px; background: var(--bg-alt); border: 1px solid var(--line); }
+  .more { display: inline-flex; align-items: center; gap: var(--space-75); font-weight: 700; color: var(--accent); text-decoration: none; }
   .more :global(svg) { width: 16px; height: 16px; }
   @media (max-width: 860px) { .tryos-grid { grid-template-columns: 1fr; } }
 </style>

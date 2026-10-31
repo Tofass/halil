@@ -29,18 +29,18 @@ const icons = ["book", "cap", "doc", "home"];
 </section>
 
 <style>
-  .services { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-  .service { padding: clamp(24px, 3vw, 36px); display: flex; flex-direction: column; gap: 14px; }
-  .service-ico { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+  .services { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-200); }
+  .service { padding: var(--space-300); display: flex; flex-direction: column; gap: var(--space-100); }
+  .service-ico { width: 52px; height: 52px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
   .service-ico :global(svg) { width: 26px; height: 26px; }
-  .service h3 { font-size: 22px; }
-  .service-who { font-size: 15px; }
-  .service ul { list-style: none; display: grid; gap: 8px; }
-  .service li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; }
-  .service li :global(svg) { width: 18px; height: 18px; flex: none; margin-top: 3px; color: var(--accent); }
-  .service-result { font-size: 14px; color: var(--muted); padding-top: 14px; border-top: 1px dashed var(--line); margin-top: auto; }
+  .service h3 { font-size: 20px; }
+  .service-who { font-size: 14px; }
+  .service ul { list-style: none; display: grid; gap: var(--space-75); }
+  .service li { display: flex; gap: var(--space-75); align-items: flex-start; font-size: 14px; }
+  .service li :global(svg) { width: 18px; height: 18px; flex: none; margin-top: var(--space-25); color: var(--accent); }
+  .service-result { font-size: 14px; color: var(--muted); padding-top: var(--space-100); border-top: 1px dashed var(--line); margin-top: auto; }
   .service-result b { color: var(--ink); }
-  .service-pack { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; color: var(--accent); text-decoration: none; }
+  .service-pack { display: inline-flex; align-items: center; gap: var(--space-75); font-weight: 700; font-size: 14px; color: var(--accent); text-decoration: none; }
   .service-pack :global(svg) { width: 16px; height: 16px; transition: transform 0.2s; }
   .service-pack:hover :global(svg) { transform: translateX(3px); }
   @media (max-width: 760px) { .services { grid-template-columns: 1fr; } }

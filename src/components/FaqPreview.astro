@@ -28,16 +28,16 @@ const top = faq.flatMap((c) => c.items.filter((i) => i.top)).slice(0, 8);
 </section>
 
 <style>
-  .faq-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
-  .faq-side .section-head { margin-bottom: 28px; }
-  .faq-cats { display: grid; gap: 8px; }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: var(--space-300); align-items: start; }
+  .faq-side .section-head { margin-bottom: var(--space-300); }
+  .faq-cats { display: grid; gap: var(--space-75); }
   .faq-cats a {
-    display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 18px;
+    display: flex; align-items: center; justify-content: space-between; gap: var(--space-200); padding: var(--space-100) var(--space-200);
     border-radius: var(--radius-sm); border: 1px solid var(--line); text-decoration: none; transition: border-color 0.2s, background 0.2s;
   }
   .faq-cats a:hover { border-color: var(--accent); background: var(--surface); }
-  .faq-cats span { display: grid; gap: 2px; }
-  .faq-cats small { color: var(--muted); font-size: 13px; }
+  .faq-cats span { display: grid; gap: var(--space-25); }
+  .faq-cats small { color: var(--muted); font-size: 12px; }
   .faq-cats :global(svg) { width: 18px; height: 18px; flex: none; color: var(--accent); }
   @media (max-width: 860px) { .faq-grid { grid-template-columns: 1fr; } }
 </style>

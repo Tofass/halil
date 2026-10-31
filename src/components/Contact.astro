@@ -4,10 +4,11 @@ import { requestOptions } from "../data/packages";
 import { TG_LINK, TG_USER, url } from "../data/site";
 ---
 <section class="section" id="contacts" aria-labelledby="contacts-title">
-  <div class="wrap contact card reveal">
+  <div class="wrap">
+  <div class="contact card reveal">
     <div class="contact-visual" style={`--img:url(${url("assets/galata.webp")})`}>
       <span class="eyebrow">Контакты</span>
-      <h2 id="contacts-title">Получите бесплатную консультацию</h2>
+      <h2 id="contacts-title">Получите консультацию</h2>
       <p>Расскажите о целях — подскажем маршрут, сроки и нужные шаги. Отвечаем в Telegram.</p>
       <a class="btn btn--light" href={TG_LINK} target="_blank" rel="noopener noreferrer">
         <Icon name="send" /> @{TG_USER}
@@ -43,6 +44,7 @@ import { TG_LINK, TG_USER, url } from "../data/site";
       <p class="form-status" role="status" hidden></p>
       <p class="form-hint muted">Откроется Telegram с готовым текстом — нажмите «Отправить» в мессенджере.</p>
     </form>
+  </div>
   </div>
 </section>
 
@@ -104,29 +106,30 @@ import { TG_LINK, TG_USER, url } from "../data/site";
 <style>
   .contact { display: grid; grid-template-columns: 1fr 1.15fr; overflow: hidden; padding: 0; box-shadow: var(--shadow); }
   .contact-visual {
-    position: relative; isolation: isolate; color: #fffaf3; padding: clamp(28px, 4vw, 48px);
-    display: flex; flex-direction: column; justify-content: flex-end; gap: 14px; align-items: flex-start; min-height: 420px;
-    background: linear-gradient(180deg, rgba(20, 14, 10, 0.15), rgba(20, 14, 10, 0.88)), var(--img) center / cover;
+    position: relative; isolation: isolate; color: #fffaf3; padding: var(--space-300);
+    display: flex; flex-direction: column; justify-content: flex-end; gap: var(--space-100); align-items: flex-start; min-height: 420px;
+    background: var(--img) center / cover;
   }
+  .contact-visual::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(20, 14, 10, 0.62); }
   .contact-visual .eyebrow { color: #f2b27c; }
-  .contact-visual h2 { font-size: clamp(28px, 3.6vw, 40px); }
+  .contact-visual h2 { font-size: 24px; }
   .contact-visual p { color: rgba(255, 250, 243, 0.82); max-width: 380px; }
-  .contact-visual .btn { margin-top: 8px; }
+  .contact-visual .btn { margin-top: var(--space-75); }
 
-  .contact-form { padding: clamp(24px, 4vw, 48px); display: grid; gap: 16px; align-content: start; }
-  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  label { display: grid; gap: 6px; }
-  label span { font-size: 13px; font-weight: 700; }
+  .contact-form { padding: var(--space-300); display: grid; gap: var(--space-200); align-content: start; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-200); }
+  label { display: grid; gap: var(--space-50); }
+  label span { font-size: 12px; font-weight: 700; }
   input, select, textarea {
     width: 100%; font: inherit; font-size: 16px; color: var(--ink); background: var(--bg);
-    border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 14px; min-height: 48px;
+    border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--space-100) var(--space-100); min-height: 48px;
   }
   textarea { resize: vertical; }
   input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
-  .form-status { padding: 12px 14px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; }
+  .form-status { padding: var(--space-100) var(--space-100); border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; }
   .form-status[data-kind="ok"] { background: color-mix(in srgb, #2e8b57 15%, transparent); color: color-mix(in srgb, #2e8b57 80%, var(--ink)); }
   .form-status[data-kind="err"] { background: color-mix(in srgb, #c0392b 14%, transparent); color: color-mix(in srgb, #c0392b 80%, var(--ink)); }
-  .form-hint { font-size: 13px; }
+  .form-hint { font-size: 12px; }
 
   @media (max-width: 860px) {
     .contact { grid-template-columns: 1fr; }

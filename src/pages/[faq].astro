@@ -39,7 +39,7 @@ const schema = {
       <aside class="faq-aside">
         <div class="card ask">
           <h2>Не нашли ответ?</h2>
-          <p class="muted">Напишите нам — разберём вашу ситуацию на бесплатной консультации.</p>
+          <p class="muted">Напишите нам — разберём вашу ситуацию на консультации.</p>
           <a class="btn btn--accent btn--block" href={TG_LINK} target="_blank" rel="noopener noreferrer"><Icon name="send" /> Написать в Telegram</a>
         </div>
         <nav class="card others" aria-label="Другие разделы FAQ">
@@ -52,14 +52,13 @@ const schema = {
 </Base>
 
 <style>
-  .faq-page { padding-top: clamp(32px, 6vw, 64px); }
-  .faq-page-grid { display: grid; grid-template-columns: 1fr 320px; gap: clamp(28px, 4vw, 56px); align-items: start; }
-  .back { display: inline-block; margin-bottom: 24px; font-weight: 700; font-size: 14px; color: var(--accent); text-decoration: none; }
-  h1 { font-size: clamp(32px, 5vw, 52px); }
-  .faq-aside { position: sticky; top: calc(var(--header-h) + 20px); display: grid; gap: 16px; }
-  .ask, .others { padding: 24px; display: grid; gap: 12px; }
+  .faq-page { padding-top: var(--space-400); }
+  .faq-page-grid { display: grid; grid-template-columns: 1fr 320px; gap: var(--space-300); align-items: start; }
+  .back { display: inline-block; margin-bottom: var(--space-300); font-weight: 700; font-size: 14px; color: var(--accent); text-decoration: none; }
+  .faq-aside { position: sticky; top: calc(var(--header-h) + 20px); display: grid; gap: var(--space-200); }
+  .ask, .others { padding: var(--space-300); display: grid; gap: var(--space-100); }
   .faq-aside h2 { font-family: var(--sans); font-size: 18px; }
-  .others a { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); text-decoration: none; font-weight: 600; }
+  .others a { display: flex; justify-content: space-between; align-items: center; padding: var(--space-75) 0; border-top: 1px solid var(--line); text-decoration: none; font-weight: 600; }
   .others a:hover { color: var(--accent); }
   .others :global(svg) { width: 16px; height: 16px; color: var(--accent); }
   @media (max-width: 860px) { .faq-page-grid { grid-template-columns: 1fr; } .faq-aside { position: static; } }
