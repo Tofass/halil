@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
 import Icon from "../components/Icon.astro";
-import { nav, socials, TG_LINK, url } from "../data/site";
+import { nav, socials, WA_LINK, url } from "../data/site";
 
 interface Props { title: string; description: string }
 const { title, description } = Astro.props;
@@ -118,8 +118,8 @@ const year = new Date().getFullYear();
       </div>
     </footer>
 
-    <a class="tg-float" href={TG_LINK} target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram">
-      <Icon name="send" />
+    <a class="tg-float" href={WA_LINK} target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp">
+      <Icon name="whatsapp" />
     </a>
 
     <script>
@@ -144,7 +144,7 @@ const year = new Date().getFullYear();
       document.querySelectorAll("#site-nav a").forEach((a) => a.addEventListener("click", () => setNav(false)));
       addEventListener("keydown", (e) => { if (e.key === "Escape") setNav(false); });
 
-      // On phones the floating Telegram button hides while the contact form is on screen, so it cannot cover the submit button.
+      // On phones the floating WhatsApp button hides while the contact form is on screen, so it cannot cover the submit button.
       const contacts = document.getElementById("contacts");
       if (contacts && "IntersectionObserver" in window) {
         new IntersectionObserver(([e]) => body.classList.toggle("tg-hidden", e.isIntersecting), { threshold: 0.15 }).observe(contacts);
@@ -234,8 +234,9 @@ const year = new Date().getFullYear();
       @media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } }
 
       .tg-float {
+        background: #1fa855;
         position: fixed; right: 18px; bottom: 18px; z-index: 45; width: 56px; height: 56px; border-radius: 50%;
-        display: grid; place-items: center; background: #2aa1da; color: #fff; box-shadow: 0 10px 28px -8px rgba(0, 0, 0, 0.45);
+        display: grid; place-items: center; background: #1fa855; color: #fff; box-shadow: 0 10px 28px -8px rgba(0, 0, 0, 0.45);
         transition: transform 0.2s;
       }
       .tg-float:hover { transform: scale(1.06); }

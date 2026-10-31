@@ -1,6 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-import { TG_LINK, TG_USER, url } from "../data/site";
+import { WA_DISPLAY, WA_LINK, url } from "../data/site";
 ---
 <Base title="Условия | FahriYOS.EDU" description="Условия использования сайта и порядок оказания услуг FahriYOS.EDU.">
   <section class="section">
@@ -19,7 +19,7 @@ import { TG_LINK, TG_USER, url } from "../data/site";
       <p>Требования, сроки подачи и стоимость обучения зависят от университета и года поступления. Актуальные данные нужно проверять на сайте выбранного вуза.</p>
 
       <h2>Связь</h2>
-      <p>Заявки и вопросы принимаются в Telegram: <a href={TG_LINK} target="_blank" rel="noopener noreferrer">@{TG_USER}</a>.</p>
+      <p>Заявки и вопросы принимаются в WhatsApp: <a href={WA_LINK} target="_blank" rel="noopener noreferrer">{WA_DISPLAY}</a>.</p>
 
       <p class="muted">Это краткое описание условий, а не договор оферты. Договорённости по конкретному заказу фиксируются при его согласовании.</p>
     </div>

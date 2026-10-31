@@ -1,7 +1,7 @@
 ---
 import Icon from "./Icon.astro";
 import { requestOptions } from "../data/packages";
-import { TG_LINK, TG_USER, url } from "../data/site";
+import { WA_DISPLAY, WA_LINK, WA_NUMBER, url } from "../data/site";
 ---
 <section class="section" id="contacts" aria-labelledby="contacts-title">
   <div class="wrap">
@@ -9,13 +9,13 @@ import { TG_LINK, TG_USER, url } from "../data/site";
     <div class="contact-visual" style={`--img:url(${url("assets/galata.webp")})`}>
       <span class="eyebrow">Контакты</span>
       <h2 id="contacts-title">Получите консультацию</h2>
-      <p>Расскажите о целях — подскажем маршрут, сроки и нужные шаги. Отвечаем в Telegram.</p>
-      <a class="btn btn--light" href={TG_LINK} target="_blank" rel="noopener noreferrer">
-        <Icon name="send" /> @{TG_USER}
+      <p>Расскажите о целях — подскажем маршрут, сроки и нужные шаги. Отвечаем в WhatsApp.</p>
+      <a class="btn btn--light" href={WA_LINK} target="_blank" rel="noopener noreferrer">
+        <Icon name="whatsapp" /> {WA_DISPLAY}
       </a>
     </div>
 
-    <form class="contact-form" id="contact-form" novalidate data-tg={TG_USER}>
+    <form class="contact-form" id="contact-form" novalidate data-wa={WA_NUMBER}>
       <label>
         <span>Пакет или услуга</span>
         <select name="package" required>
@@ -32,17 +32,17 @@ import { TG_LINK, TG_USER, url } from "../data/site";
           <input name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" />
         </label>
         <label>
-          <span>Телефон или Telegram *</span>
-          <input name="contact" type="text" autocomplete="tel" placeholder="+7… или @username" required />
+          <span>Ваш WhatsApp *</span>
+          <input name="contact" type="text" autocomplete="tel" placeholder="+90… или +7…" required />
         </label>
       </div>
       <label>
         <span>Сообщение</span>
         <textarea name="message" rows="4" placeholder="Страна, класс, желаемая специальность, вопросы"></textarea>
       </label>
-      <button class="btn btn--accent btn--block" type="submit"><Icon name="send" /> Отправить заявку в Telegram</button>
+      <button class="btn btn--accent btn--block" type="submit"><Icon name="whatsapp" /> Отправить заявку в WhatsApp</button>
       <p class="form-status" role="status" hidden></p>
-      <p class="form-hint muted">Откроется Telegram с готовым текстом — нажмите «Отправить» в мессенджере.</p>
+      <p class="form-hint muted">Откроется WhatsApp с готовым текстом — нажмите «Отправить» в приложении.</p>
     </form>
   </div>
   </div>
@@ -82,7 +82,7 @@ import { TG_LINK, TG_USER, url } from "../data/site";
       return;
     }
     if (!contact) {
-      show("Укажите телефон или Telegram, чтобы мы могли ответить.", "err");
+      show("Укажите номер WhatsApp, чтобы мы могли ответить.", "err");
       form.querySelector<HTMLInputElement>("[name='contact']")!.focus();
       return;
     }
@@ -98,8 +98,8 @@ import { TG_LINK, TG_USER, url } from "../data/site";
       `Мой контакт: ${contact}`,
     ].filter(Boolean);
 
-    window.open(`https://t.me/${form.dataset.tg}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener");
-    show("Telegram открыт с текстом заявки. Нажмите «Отправить» в мессенджере, чтобы мы её получили.", "ok");
+    window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener");
+    show("WhatsApp открыт с текстом заявки. Нажмите «Отправить» в приложении, чтобы мы её получили.", "ok");
   });
 </script>
 

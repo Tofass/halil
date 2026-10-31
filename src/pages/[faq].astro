@@ -3,7 +3,7 @@ import Base from "../layouts/Base.astro";
 import FaqList from "../components/FaqList.astro";
 import Icon from "../components/Icon.astro";
 import { faq, type FaqCategory } from "../data/faq";
-import { TG_LINK, url } from "../data/site";
+import { WA_LINK, url } from "../data/site";
 
 export function getStaticPaths() {
   return faq.map((c) => ({ params: { faq: c.slug }, props: { cat: c } }));
@@ -40,7 +40,7 @@ const schema = {
         <div class="card ask">
           <h2>Не нашли ответ?</h2>
           <p class="muted">Напишите нам — разберём вашу ситуацию на консультации.</p>
-          <a class="btn btn--accent btn--block" href={TG_LINK} target="_blank" rel="noopener noreferrer"><Icon name="send" /> Написать в Telegram</a>
+          <a class="btn btn--accent btn--block" href={WA_LINK} target="_blank" rel="noopener noreferrer"><Icon name="send" /> Написать в WhatsApp</a>
         </div>
         <nav class="card others" aria-label="Другие разделы FAQ">
           <h2>Другие вопросы</h2>

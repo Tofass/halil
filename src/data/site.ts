@@ -1,8 +1,14 @@
-export const TG_USER = "lanperor";
-export const TG_LINK = `https://t.me/${TG_USER}`;
+/** Main contact channel: WhatsApp. Digits only for wa.me links. */
+export const WA_NUMBER = "905510865298";
+export const WA_DISPLAY = "+90 551 086 52 98";
+export const WA_LINK = `https://wa.me/${WA_NUMBER}`;
+
+/** Telegram channel, kept as a secondary social link. */
+export const TG_CHANNEL = "https://t.me/tryosfahri";
 
 export const socials = [
-  { name: "Telegram-канал", href: "https://t.me/tryosfahri", icon: "telegram" },
+  { name: "WhatsApp", href: WA_LINK, icon: "whatsapp" },
+  { name: "Telegram-канал", href: TG_CHANNEL, icon: "telegram" },
   { name: "Instagram", href: "https://instagram.com/fahri_yos", icon: "instagram" },
   { name: "TikTok", href: "https://tiktok.com/@fahri_yos", icon: "tiktok" },
   { name: "YouTube", href: "https://youtube.com/@tryosfahri", icon: "youtube" },

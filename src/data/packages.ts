@@ -8,7 +8,7 @@ export type Package = {
   oldPrice?: string;
   badge?: string;
   features: string[];
-  /** Short text pasted into the Telegram request. */
+  /** Short text pasted into the WhatsApp request. */
   summary: string;
 };
 
