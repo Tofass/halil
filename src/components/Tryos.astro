@@ -8,7 +8,7 @@ const total = tryos.split.reduce((s, x) => s + x.count, 0);
 <section class="section" id="tryos" aria-labelledby="tryos-title">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">Экзамен</span>
+      <span class="eyebrow">05 / Экзамен</span>
       <h2 id="tryos-title">Что нужно знать о TR-YÖS</h2>
       <p>Вступительный экзамен для иностранных абитуриентов. Его результаты используют турецкие университеты при приёме.</p>
     </div>
@@ -52,22 +52,22 @@ const total = tryos.split.reduce((s, x) => s + x.count, 0);
   .tryos-exam, .tryos-topics { padding: var(--space-300); }
   .facts { margin: 0 0 var(--space-300); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-100); }
   .facts div { display: flex; flex-direction: column-reverse; }
-  .facts dd { margin: 0; font-family: var(--serif); font-size: 36px; line-height: 1; color: var(--accent); }
+  .facts dd { margin: 0; font-family: var(--serif); font-size: 36px; line-height: 1; color: var(--ink); }
   .facts dt { font-size: 14px; color: var(--muted); margin-top: var(--space-50); }
-  .split { display: flex; gap: var(--space-50); height: 14px; border-radius: 999px; overflow: hidden; }
-  .seg-0 { background: var(--accent); }
-  .seg-1 { background: color-mix(in srgb, var(--accent) 55%, var(--bg)); }
-  .seg-2 { background: color-mix(in srgb, var(--accent) 25%, var(--bg)); }
+  .split { display: flex; gap: var(--space-25); height: 14px; border-radius: 0; overflow: hidden; }
+  .seg-0 { background: var(--ink); }
+  .seg-1 { background: color-mix(in srgb, var(--ink) 55%, var(--surface)); }
+  .seg-2 { background: color-mix(in srgb, var(--ink) 25%, var(--surface)); }
   .split-legend { list-style: none; margin-top: var(--space-100); display: flex; flex-wrap: wrap; gap: var(--space-75) var(--space-200); font-size: 14px; }
   .split-legend li { display: flex; align-items: center; gap: var(--space-75); }
-  .split-legend i { width: 10px; height: 10px; border-radius: 2px; }
+  .split-legend i { width: 10px; height: 10px; border-radius: 0; }
   .lessons { margin-top: var(--space-300); padding-top: var(--space-300); border-top: 1px solid var(--line); display: grid; gap: var(--space-100); justify-items: start; }
   .lessons h3, .tryos-topics h3 { font-size: 20px; }
   .tryos-topics { display: grid; gap: var(--space-200); }
-  .topic h4 { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-75); }
+  .topic h4 { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--muted); margin-bottom: var(--space-75); }
   .topic ul { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-50); }
-  .topic li { font-size: 12px; padding: var(--space-50) var(--space-75); border-radius: 999px; background: var(--bg-alt); border: 1px solid var(--line); }
-  .more { display: inline-flex; align-items: center; gap: var(--space-75); font-weight: 600; color: var(--accent); text-decoration: none; }
+  .topic li { font-size: 12px; padding: var(--space-50) var(--space-75); border-radius: var(--radius); background: var(--bg-alt); border: 1px solid var(--line); }
+  .more { display: inline-flex; align-items: center; gap: var(--space-75); font-weight: 600; color: var(--ink); text-decoration: underline; text-underline-offset: var(--space-50); }
   .more :global(svg) { width: 16px; height: 16px; }
   @media (max-width: 860px) { .tryos-grid { grid-template-columns: 1fr; } }
 </style>

@@ -10,7 +10,7 @@ const top = faq.flatMap((c) => c.items.filter((i) => i.top)).slice(0, 8);
   <div class="wrap faq-grid">
     <div class="faq-side reveal">
       <div class="section-head">
-        <span class="eyebrow">FAQ</span>
+        <span class="eyebrow">06 / FAQ</span>
         <h2 id="faq-title">Частые вопросы</h2>
         <p>Коротко о поступлении, TR-YÖS, документах и о том, кому подходит сопровождение.</p>
       </div>
@@ -33,11 +33,11 @@ const top = faq.flatMap((c) => c.items.filter((i) => i.top)).slice(0, 8);
   .faq-cats { display: grid; gap: var(--space-75); }
   .faq-cats a {
     display: flex; align-items: center; justify-content: space-between; gap: var(--space-200); padding: var(--space-100) var(--space-200);
-    border-radius: var(--radius-sm); border: 1px solid var(--line); text-decoration: none; transition: border-color 0.2s, background 0.2s;
+    border-radius: var(--radius-sm); border: 1px solid var(--line); text-decoration: none; transition: border-color 200ms var(--ease), background-color 200ms var(--ease);
   }
-  .faq-cats a:hover { border-color: var(--accent); background: var(--surface); }
+  .faq-cats a:hover { border-color: var(--ink); background: var(--surface); }
   .faq-cats span { display: grid; gap: var(--space-25); }
   .faq-cats small { color: var(--muted); font-size: 12px; }
-  .faq-cats :global(svg) { width: 18px; height: 18px; flex: none; color: var(--accent); }
+  .faq-cats :global(svg) { width: 18px; height: 18px; flex: none; color: var(--ink); }
   @media (max-width: 860px) { .faq-grid { grid-template-columns: 1fr; } }
 </style>

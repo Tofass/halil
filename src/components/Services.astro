@@ -1,20 +1,18 @@
 ---
 import Icon from "./Icon.astro";
 import { services } from "../data/content";
-
-const icons = ["book", "cap", "doc", "home"];
 ---
 <section class="section section--alt" id="services" aria-labelledby="services-title">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">Услуги</span>
+      <span class="eyebrow">02 / Услуги</span>
       <h2 id="services-title">Четыре направления помощи</h2>
       <p>Берите одно направление или собирайте весь путь из пакетов. Зачисление зависит от экзаменов, требований вуза и решения приёмной комиссии.</p>
     </div>
     <div class="services">
       {services.map((s, i) => (
         <article class="service card reveal">
-          <div class="service-ico"><Icon name={icons[i]} /></div>
+          <span class="service-num">{String(i + 1).padStart(2, "0")}</span>
           <h3>{s.title}</h3>
           <p class="muted service-who">{s.who}</p>
           <ul>
@@ -31,17 +29,16 @@ const icons = ["book", "cap", "doc", "home"];
 <style>
   .services { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-200); }
   .service { padding: var(--space-300); display: flex; flex-direction: column; gap: var(--space-100); }
-  .service-ico { width: 52px; height: 52px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
-  .service-ico :global(svg) { width: 26px; height: 26px; }
+  .service-num { font-family: var(--serif); font-size: 30px; line-height: 36px; font-weight: 600; color: var(--seal); border-bottom: 1px solid var(--line); padding-bottom: var(--space-100); }
   .service h3 { font-size: 20px; }
   .service-who { font-size: 14px; }
   .service ul { list-style: none; display: grid; gap: var(--space-75); }
   .service li { display: flex; gap: var(--space-75); align-items: flex-start; font-size: 14px; }
-  .service li :global(svg) { width: 18px; height: 18px; flex: none; margin-top: var(--space-25); color: var(--accent); }
-  .service-result { font-size: 14px; color: var(--muted); padding-top: var(--space-100); border-top: 1px dashed var(--line); margin-top: auto; }
+  .service li :global(svg) { width: 18px; height: 18px; flex: none; margin-top: var(--space-25); color: var(--ink); }
+  .service-result { font-size: 14px; color: var(--muted); padding-top: var(--space-100); border-top: 1px solid var(--line); margin-top: auto; }
   .service-result b { color: var(--ink); }
-  .service-pack { display: inline-flex; align-items: center; gap: var(--space-75); font-weight: 600; font-size: 14px; color: var(--accent); text-decoration: none; }
+  .service-pack { display: inline-flex; align-items: center; gap: var(--space-75); font-weight: 600; font-size: 14px; color: var(--ink); text-decoration: underline; text-underline-offset: var(--space-50); }
   .service-pack :global(svg) { width: 16px; height: 16px; transition: transform 0.2s; }
-  .service-pack:hover :global(svg) { transform: translateX(3px); }
+  .service-pack:hover :global(svg) { transform: translateX(2px); }
   @media (max-width: 760px) { .services { grid-template-columns: 1fr; } }
 </style>

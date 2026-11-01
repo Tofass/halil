@@ -28,7 +28,9 @@ import { WA_DISPLAY, WA_LINK, url } from "../data/site";
 
 <style>
   .legal { max-width: 760px; display: grid; gap: var(--space-200); }
-  .back { font-weight: 600; font-size: 14px; line-height: 20px; color: var(--accent); text-decoration: none; }
+  .legal h1 { font-size: 30px; line-height: 36px; }
+  @media (min-width: 768px) { .legal h1 { font-size: 48px; line-height: 48px; } }
+  .back { font-weight: 600; font-size: 14px; line-height: 20px; color: var(--ink); text-decoration: underline; text-underline-offset: var(--space-50); }
   h2 { font-family: var(--sans); font-size: 20px; line-height: 28px; margin-top: var(--space-200); }
-  a:not(.back) { color: var(--accent); }
+  a:not(.back) { color: var(--ink); text-decoration: underline; text-underline-offset: var(--space-50); }
 </style>

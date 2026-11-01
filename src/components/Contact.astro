@@ -6,13 +6,16 @@ import { WA_DISPLAY, WA_LINK, WA_NUMBER, url } from "../data/site";
 <section class="section" id="contacts" aria-labelledby="contacts-title">
   <div class="wrap">
   <div class="contact card reveal">
-    <div class="contact-visual" style={`--img:url(${url("assets/galata.webp")})`}>
-      <span class="eyebrow">Контакты</span>
+    <div class="contact-visual">
+      <div class="contact-photo" role="img" aria-label="Галатская башня на закате" style={`--img:url(${url("assets/galata.webp")})`}></div>
+      <div class="contact-text">
+      <span class="eyebrow">07 / Контакты</span>
       <h2 id="contacts-title">Получите консультацию</h2>
       <p>Расскажите о целях — подскажем маршрут, сроки и нужные шаги. Отвечаем в WhatsApp.</p>
       <a class="btn btn--light" href={WA_LINK} target="_blank" rel="noopener noreferrer">
         <Icon name="whatsapp" /> {WA_DISPLAY}
       </a>
+      </div>
     </div>
 
     <form class="contact-form" id="contact-form" novalidate data-wa={WA_NUMBER}>
@@ -104,28 +107,25 @@ import { WA_DISPLAY, WA_LINK, WA_NUMBER, url } from "../data/site";
 </script>
 
 <style>
-  .contact { display: grid; grid-template-columns: 1fr 1.15fr; overflow: hidden; padding: 0; box-shadow: var(--shadow); }
-  .contact-visual {
-    position: relative; isolation: isolate; color: #fffaf3; padding: var(--space-300);
-    display: flex; flex-direction: column; justify-content: flex-end; gap: var(--space-100); align-items: flex-start; min-height: 420px;
-    background: var(--img) center / cover;
-  }
-  .contact-visual::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(20, 14, 10, 0.62); }
-  .contact-visual .eyebrow { color: #f2b27c; }
-  .contact-visual h2 { font-size: 24px; }
-  .contact-visual p { color: rgba(255, 250, 243, 0.82); max-width: 380px; }
-  .contact-visual .btn { margin-top: var(--space-75); }
+  .contact { display: grid; grid-template-columns: 1fr 1.15fr; overflow: hidden; padding: 0; }
+  .contact-visual { display: flex; flex-direction: column; background: var(--plate); color: var(--plate-ink); }
+  .contact-photo { flex: 1; min-height: 220px; background: var(--img) center / cover; }
+  .contact-text { padding: var(--space-300); display: grid; gap: var(--space-100); justify-items: start; }
+  .contact-text .eyebrow { color: var(--plate-muted); }
+  .contact-text h2 { font-size: 24px; line-height: 32px; }
+  .contact-text p { color: var(--plate-muted); max-width: 380px; }
+  .contact-text .btn { margin-top: var(--space-75); }
 
   .contact-form { padding: var(--space-300); display: grid; gap: var(--space-200); align-content: start; }
   .row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-200); }
   label { display: grid; gap: var(--space-50); }
   label span { font-size: 12px; font-weight: 600; }
   input, select, textarea {
-    width: 100%; font: inherit; font-size: 16px; color: var(--ink); background: var(--bg);
-    border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--space-100) var(--space-100); min-height: 48px;
+    width: 100%; font: inherit; font-size: 16px; color: var(--ink); background: var(--surface);
+    border: 1px solid var(--field-line); border-radius: var(--radius-sm); padding: var(--space-100) var(--space-100); min-height: 48px;
   }
   textarea { resize: vertical; }
-  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--ink); outline-offset: 1px; border-color: var(--ink); }
   .form-status { padding: var(--space-100) var(--space-100); border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; }
   .form-status[data-kind="ok"] { background: color-mix(in srgb, #2e8b57 15%, transparent); color: color-mix(in srgb, #2e8b57 80%, var(--ink)); }
   .form-status[data-kind="err"] { background: color-mix(in srgb, #c0392b 14%, transparent); color: color-mix(in srgb, #c0392b 80%, var(--ink)); }
@@ -133,7 +133,7 @@ import { WA_DISPLAY, WA_LINK, WA_NUMBER, url } from "../data/site";
 
   @media (max-width: 860px) {
     .contact { grid-template-columns: 1fr; }
-    .contact-visual { min-height: 300px; }
+    .contact-photo { min-height: 200px; }
   }
   @media (max-width: 520px) { .row { grid-template-columns: 1fr; } }
 </style>

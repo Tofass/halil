@@ -40,7 +40,7 @@ const schema = {
         <div class="card ask">
           <h2>Не нашли ответ?</h2>
           <p class="muted">Напишите нам — разберём вашу ситуацию на консультации.</p>
-          <a class="btn btn--accent btn--block" href={WA_LINK} target="_blank" rel="noopener noreferrer"><Icon name="send" /> Написать в WhatsApp</a>
+          <a class="btn btn--accent btn--block" href={WA_LINK} target="_blank" rel="noopener noreferrer"><Icon name="whatsapp" /> Написать в WhatsApp</a>
         </div>
         <nav class="card others" aria-label="Другие разделы FAQ">
           <h2>Другие вопросы</h2>
@@ -54,12 +54,12 @@ const schema = {
 <style>
   .faq-page { padding-top: var(--space-400); }
   .faq-page-grid { display: grid; grid-template-columns: 1fr 320px; gap: var(--space-300); align-items: start; }
-  .back { display: inline-block; margin-bottom: var(--space-300); font-weight: 600; font-size: 14px; color: var(--accent); text-decoration: none; }
+  .back { display: inline-block; margin-bottom: var(--space-300); font-weight: 600; font-size: 14px; color: var(--ink); text-decoration: underline; text-underline-offset: var(--space-50); }
   .faq-aside { position: sticky; top: calc(var(--header-h) + 20px); display: grid; gap: var(--space-200); }
   .ask, .others { padding: var(--space-300); display: grid; gap: var(--space-100); }
   .faq-aside h2 { font-family: var(--sans); font-size: 18px; }
   .others a { display: flex; justify-content: space-between; align-items: center; padding: var(--space-75) 0; border-top: 1px solid var(--line); text-decoration: none; font-weight: 600; }
-  .others a:hover { color: var(--accent); }
-  .others :global(svg) { width: 16px; height: 16px; color: var(--accent); }
+  .others a:hover { text-decoration: underline; text-underline-offset: var(--space-50); }
+  .others :global(svg) { width: 16px; height: 16px; color: var(--ink); }
   @media (max-width: 860px) { .faq-page-grid { grid-template-columns: 1fr; } .faq-aside { position: static; } }
 </style>
