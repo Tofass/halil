@@ -7,7 +7,10 @@ import { WA_DISPLAY, WA_LINK, WA_NUMBER, url } from "../data/site";
   <div class="wrap">
   <div class="contact card reveal">
     <div class="contact-visual">
-      <div class="contact-photo" role="img" aria-label="Галатская башня на закате" style={`--img:url(${url("assets/galata.webp")})`}></div>
+      <figure class="contact-photo">
+        <img src={url("assets/galata.webp")} alt="Галатская башня на закате" width="832" height="452" loading="lazy" />
+        <figcaption>Галатская башня</figcaption>
+      </figure>
       <div class="contact-text">
       <span class="eyebrow">07 / Контакты</span>
       <h2 id="contacts-title">Получите консультацию</h2>
@@ -109,7 +112,9 @@ import { WA_DISPLAY, WA_LINK, WA_NUMBER, url } from "../data/site";
 <style>
   .contact { display: grid; grid-template-columns: 1fr 1.15fr; overflow: hidden; padding: 0; }
   .contact-visual { display: flex; flex-direction: column; background: var(--plate); color: var(--plate-ink); }
-  .contact-photo { flex: 1; min-height: 220px; background: var(--img) center / cover; }
+  .contact-photo { margin: var(--space-300) var(--space-300) 0; display: flex; flex-direction: column; background: var(--surface); color: var(--muted); border: 1px solid var(--ink); padding: var(--space-75); }
+  .contact-photo img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0; }
+  .contact-photo figcaption { padding-top: var(--space-75); font-size: 12px; line-height: 16px; }
   .contact-text { padding: var(--space-300); display: grid; gap: var(--space-100); justify-items: start; }
   .contact-text .eyebrow { color: var(--plate-muted); }
   .contact-text h2 { font-size: 24px; line-height: 32px; }
@@ -133,7 +138,6 @@ import { WA_DISPLAY, WA_LINK, WA_NUMBER, url } from "../data/site";
 
   @media (max-width: 860px) {
     .contact { grid-template-columns: 1fr; }
-    .contact-photo { min-height: 200px; }
   }
   @media (max-width: 520px) { .row { grid-template-columns: 1fr; } }
 </style>

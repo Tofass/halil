@@ -34,7 +34,7 @@ const proof = ["Группы до 5 человек", "3 урока в недел
 </section>
 
 <style>
-  .hero { padding: var(--space-600) 0 var(--space-700); }
+  .hero { padding: var(--space-600) 0; }
   /* Mobile order: copy (label, heading, lead, buttons), photo with caption, facts. */
   .hero-grid { display: grid; gap: var(--space-400); }
   .hero-kicker { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--muted); margin-bottom: var(--space-200); }
@@ -42,8 +42,8 @@ const proof = ["Группы до 5 человек", "3 урока в недел
   h1 em { font-style: italic; font-weight: 600; }
   .hero-sub { margin-top: var(--space-300); max-width: 560px; font-size: 18px; line-height: 28px; color: var(--muted); }
   .hero-cta { margin-top: var(--space-400); display: flex; flex-wrap: wrap; gap: var(--space-100); }
-  .hero-photo { margin: 0; background: var(--surface); border: 1px solid var(--ink); padding: var(--space-75); }
-  .hero-photo img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 60% 40%; border-radius: 0; }
+  .hero-photo { margin: 0; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--ink); padding: var(--space-75); }
+  .hero-photo img { width: 100%; height: auto; aspect-ratio: 5 / 4; object-fit: cover; object-position: 60% 40%; border-radius: 0; }
   .hero-photo figcaption { padding-top: var(--space-75); font-size: 12px; line-height: 16px; color: var(--muted); }
   .hero-proof { list-style: none; display: grid; gap: var(--space-75); font-size: 14px; line-height: 20px; color: var(--muted); border-top: 1px solid var(--line); padding-top: var(--space-200); }
   .hero-proof li { display: flex; gap: var(--space-100); }
@@ -53,10 +53,19 @@ const proof = ["Группы до 5 человек", "3 урока в недел
     .hero-proof { display: flex; flex-wrap: wrap; gap: var(--space-75) var(--space-400); }
   }
   @media (min-width: 1024px) {
-    .hero { padding: var(--space-800) 0; }
-    .hero-grid { grid-template-columns: 1.05fr 1fr; grid-template-areas: "copy photo" "proof photo"; column-gap: var(--space-700); align-items: start; }
+    .hero { padding: var(--space-700) 0; }
+    /* The grid keeps the page margin on the left (aligned with the other sections) and runs to the window edge on the right. */
+    .hero-grid {
+      max-width: none; padding-right: 0;
+      padding-left: max(var(--gutter), calc((100% - var(--max)) / 2 + var(--gutter)));
+      grid-template-columns: 1fr 1.25fr; grid-template-areas: "copy photo" "proof photo";
+      column-gap: var(--space-400); row-gap: var(--space-400); align-items: start;
+    }
     .hero-copy { grid-area: copy; }
-    .hero-photo { grid-area: photo; }
+    .hero-photo { grid-area: photo; align-self: stretch; }
+    /* The photo takes the whole height of the left block, so its own ratio no longer applies. */
+    .hero-photo picture { flex: 1 1 0; min-height: 320px; position: relative; display: block; }
+    .hero-photo img { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; }
     .hero-proof { grid-area: proof; align-self: end; }
   }
   @media (max-width: 560px) { .hero-cta .btn { flex: 1 1 100%; } }

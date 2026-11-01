@@ -15,10 +15,6 @@ import { services } from "../data/content";
           <span class="service-num">{String(i + 1).padStart(2, "0")}</span>
           <h3>{s.title}</h3>
           <p class="muted service-who">{s.who}</p>
-          <ul>
-            {s.items.map((it) => <li><Icon name="check" />{it}</li>)}
-          </ul>
-          <p class="service-result"><b>Результат:</b> {s.result}</p>
           <a class="service-pack" href="#packages">{s.pack} <Icon name="arrow" /></a>
         </article>
       ))}
@@ -28,16 +24,12 @@ import { services } from "../data/content";
 
 <style>
   .services { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-200); }
+  @media (min-width: 1024px) { .services { grid-template-columns: repeat(4, 1fr); } }
   .service { padding: var(--space-300); display: flex; flex-direction: column; gap: var(--space-100); }
   .service-num { font-family: var(--serif); font-size: 30px; line-height: 36px; font-weight: 600; color: var(--seal); border-bottom: 1px solid var(--line); padding-bottom: var(--space-100); }
   .service h3 { font-size: 20px; }
-  .service-who { font-size: 14px; }
-  .service ul { list-style: none; display: grid; gap: var(--space-75); }
-  .service li { display: flex; gap: var(--space-75); align-items: flex-start; font-size: 14px; }
-  .service li :global(svg) { width: 18px; height: 18px; flex: none; margin-top: var(--space-25); color: var(--ink); }
-  .service-result { font-size: 14px; color: var(--muted); padding-top: var(--space-100); border-top: 1px solid var(--line); margin-top: auto; }
-  .service-result b { color: var(--ink); }
-  .service-pack { display: inline-flex; align-items: center; gap: var(--space-75); font-weight: 600; font-size: 14px; color: var(--ink); text-decoration: underline; text-underline-offset: var(--space-50); }
+  .service-who { font-size: 14px; flex: 1; }
+  .service-pack { padding-top: var(--space-100); border-top: 1px solid var(--line); display: inline-flex; align-items: center; gap: var(--space-75); font-weight: 600; font-size: 14px; color: var(--ink); text-decoration: underline; text-underline-offset: var(--space-50); }
   .service-pack :global(svg) { width: 16px; height: 16px; transition: transform 0.2s; }
   .service-pack:hover :global(svg) { transform: translateX(2px); }
   @media (max-width: 760px) { .services { grid-template-columns: 1fr; } }

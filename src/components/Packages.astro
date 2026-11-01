@@ -24,6 +24,7 @@ import { packages, singleServices } from "../data/packages";
             <b>{p.price}</b>
             {p.per && <span>{p.per}</span>}
           </p>
+          {p.priceNote && <p class="pack-note">{p.priceNote}</p>}
           <ul>
             {p.features.map((f) => <li><Icon name="check" />{f}</li>)}
           </ul>
@@ -64,6 +65,7 @@ import { packages, singleServices } from "../data/packages";
   .pack-badge { font-size: 12px; font-weight: 600; padding: var(--space-50) var(--space-75); border-radius: var(--radius); background: var(--seal); color: var(--seal-ink); }
   .pack h3 { font-size: 20px; }
   .pack-tag { font-size: 14px; color: var(--muted); }
+  .pack-note { font-size: 14px; line-height: 20px; color: var(--muted); }
   .pack-price { display: flex; align-items: baseline; gap: var(--space-75); margin: var(--space-75) 0 var(--space-50); }
   .pack-price b { font-family: var(--serif); font-size: 48px; line-height: 48px; font-weight: 600; color: var(--seal); }
   .pack-price span { color: var(--muted); font-size: 14px; }
@@ -74,7 +76,7 @@ import { packages, singleServices } from "../data/packages";
 
   .pack--featured { background: var(--plate); color: var(--plate-ink); border-color: var(--plate); border-top-color: var(--plate-ink); }
   .pack--featured .pack-num, .pack--featured .pack-tag, .pack--featured .pack-price span, .pack--featured .pack-price s { color: var(--plate-muted); }
-  .pack--featured .pack-price b { color: var(--seal-on-plate); }
+  .pack--featured .pack-price b { color: var(--plate-ink); }
   .pack--featured li :global(svg) { color: var(--plate-ink); }
   .pack--featured :focus-visible { outline-color: var(--plate-ink); }
   :global([data-theme="dark"]) .pack--featured { border-color: var(--plate-line); border-top-color: var(--plate-ink); }

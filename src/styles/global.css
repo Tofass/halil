@@ -19,7 +19,6 @@
   --plate-ink: #f4f1ea;
   --plate-muted: #b4c3cc;
   --plate-line: rgba(244, 241, 234, 0.22);
-  --seal-on-plate: #f08c82;
 
   /* Spacing scale: only these values are used. */
   --space-0: 0;
@@ -133,8 +132,8 @@ h3 { font-family: var(--sans); }
 .skip:focus { left: var(--space-75); }
 
 .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
-.section { padding: var(--space-800) 0; }
-@media (min-width: 768px) { .section { padding: var(--space-900) 0; } }
+.section { padding: var(--space-600) 0; }
+@media (min-width: 768px) { .section { padding: var(--space-700) 0; } }
 .section--alt { background: var(--bg-alt); }
 .section--dark { background: var(--plate); color: var(--plate-ink); }
 :root[data-theme="dark"] .section--dark { border-block: 1px solid var(--plate-line); }
@@ -145,8 +144,8 @@ h3 { font-family: var(--sans); }
   display: block; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--muted);
 }
 .section--dark .eyebrow { color: var(--plate-muted); }
-.section-head { max-width: 680px; margin-bottom: var(--space-500); display: grid; gap: var(--space-100); }
-@media (min-width: 768px) { .section-head { margin-bottom: var(--space-700); } }
+.section-head { max-width: 680px; margin-bottom: var(--space-300); display: grid; gap: var(--space-100); }
+@media (min-width: 768px) { .section-head { margin-bottom: var(--space-500); } }
 .section-head p { color: var(--muted); font-size: 16px; line-height: 24px; }
 @media (min-width: 768px) { .section-head p { font-size: 18px; line-height: 28px; } }
 .section--dark .section-head p { color: var(--plate-muted); }

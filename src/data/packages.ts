@@ -7,6 +7,8 @@ export type Package = {
   per?: string;
   oldPrice?: string;
   badge?: string;
+  /** One quiet line under the price. */
+  priceNote?: string;
   features: string[];
   /** Short text pasted into the WhatsApp request. */
   summary: string;
@@ -20,6 +22,7 @@ export const packages: Package[] = [
     tagline: "Мини-группы до 5 человек",
     price: "$300",
     per: "/ месяц",
+    priceNote: "Цена за месяц занятий, не за весь курс.",
     features: [
       "3 урока в неделю в мини-группе",
       "1 бесплатное общее занятие по логике",
@@ -83,7 +86,7 @@ export const packages: Package[] = [
     features: [
       "Всё из пакетов 2 и 3",
       "Встреча в аэропорту",
-      "Совместное посещение университета, жилья и т. д.",
+      "Совместное посещение университета и жилья",
     ],
     summary: "Встреча в аэропорту, совместные визиты, всё из пакетов 2 и 3.",
   },

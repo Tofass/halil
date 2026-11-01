@@ -13,6 +13,7 @@ const words = text.split(" ");
         </>
       ))}
     </p>
+    <p class="tagline-note">Работаем с абитуриентами из стран СНГ: документы можно подать из-за границы, помочь можно и тем, кто уже в Турции.</p>
   </div>
 </section>
 
@@ -41,10 +42,11 @@ const words = text.split(" ");
 </script>
 
 <style>
-  .tagline { padding: var(--space-800) 0 0; }
-  p { max-width: 680px; font-family: var(--serif); font-style: italic; border-left: 4px solid var(--seal); padding-left: var(--space-300); }
+  .tagline { padding: var(--space-600) 0 0; }
+  [data-tagline] { max-width: 680px; font-family: var(--serif); font-style: italic; border-left: 4px solid var(--seal); padding-left: var(--space-300); }
+  .tagline-note { margin-top: var(--space-200); max-width: 680px; font-size: 14px; line-height: 20px; color: var(--muted); }
   .w { opacity: 0.42; transition: opacity 500ms var(--ease); }
   .w.on { opacity: 1; }
   :global(.no-js) .w { opacity: 1; }
-  @media (min-width: 768px) { .tagline { padding: var(--space-900) 0 0; } }
+  @media (min-width: 768px) { .tagline { padding: var(--space-700) 0 0; } }
 </style>
