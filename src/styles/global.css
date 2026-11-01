@@ -168,7 +168,7 @@ h3 { font-family: var(--sans); }
 .btn--light { background: #fbfaf6; color: var(--plate); }
 .btn--light:hover { background: #e6e2d9; }
 .btn--block { width: 100%; }
-.btn svg { width: 18px; height: 18px; flex: none; }
+.btn svg { width: 20px; height: 20px; flex: none; }
 
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
 

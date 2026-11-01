@@ -233,6 +233,9 @@ const year = new Date().getFullYear();
       }
       .tg-float:hover { background: #166338; }
       @media (max-width: 860px) {
+        .tg-float { width: 48px; height: 48px; right: var(--space-200); bottom: var(--space-200); }
+      }
+      @media (max-width: 860px) {
         :global(body.tg-hidden) .tg-float { opacity: 0; pointer-events: none; transform: translateY(var(--space-300)); }
       }
       .tg-float { transition: opacity 300ms var(--ease), transform 300ms var(--ease), background-color 200ms var(--ease); }
