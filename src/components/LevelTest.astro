@@ -1,0 +1,161 @@
+---
+import Icon from "./Icon.astro";
+import { questions, levels } from "../data/leveltest";
+import { requestOptions } from "../data/packages";
+
+const options = Object.fromEntries(requestOptions.map((o) => [o.id, { label: o.label, price: o.price }]));
+// The answer key stays in the page data: this is a self-check, not an exam.
+const payload = JSON.stringify({ questions, levels, options });
+---
+<section class="section section--alt" id="level" aria-labelledby="level-title">
+  <div class="wrap level-grid">
+    <div class="section-head reveal">
+      <span class="eyebrow">Мини-тест</span>
+      <h2 id="level-title">Какой у вас уровень? Узнайте за 2 минуты</h2>
+      <p>Восемь коротких задач по логике и математике, как на TR-YÖS. Результат — ориентир, не официальный балл.</p>
+    </div>
+
+    <div class="lt card reveal" data-lt={payload}>
+      <div class="lt-top">
+        <span class="lt-count" aria-live="polite"></span>
+        <div class="lt-bar" role="progressbar" aria-valuemin="0" aria-valuemax={questions.length} aria-valuenow="0"><i></i></div>
+      </div>
+
+      <div class="lt-step">
+        <h3 class="lt-q"></h3>
+        <div class="lt-opts" role="group" aria-label="Варианты ответа"></div>
+      </div>
+
+      <div class="lt-result" aria-live="polite" hidden>
+        <p class="eyebrow">Ваш результат</p>
+        <p class="lt-score"></p>
+        <h3 class="lt-level"></h3>
+        <p class="lt-text"></p>
+        <div class="lt-pick"><span></span><b></b></div>
+        <div class="lt-actions">
+          <a class="btn btn--accent lt-cta" href="#contacts">Оставить заявку <Icon name="arrow" /></a>
+          <button class="btn btn--ghost lt-again" type="button">Пройти заново</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  type Q = { q: string; options: string[]; answer: number };
+  type L = { min: number; title: string; text: string; pack: string };
+  const root = document.querySelector<HTMLElement>(".lt")!;
+  const { questions, levels, options } = JSON.parse(root.dataset.lt!) as {
+    questions: Q[]; levels: L[]; options: Record<string, { label: string; price: string }>;
+  };
+
+  const count = root.querySelector<HTMLElement>(".lt-count")!;
+  const bar = root.querySelector<HTMLElement>(".lt-bar")!;
+  const fill = bar.querySelector<HTMLElement>("i")!;
+  const step = root.querySelector<HTMLElement>(".lt-step")!;
+  const qEl = root.querySelector<HTMLElement>(".lt-q")!;
+  const optsEl = root.querySelector<HTMLElement>(".lt-opts")!;
+  const result = root.querySelector<HTMLElement>(".lt-result")!;
+  const top = root.querySelector<HTMLElement>(".lt-top")!;
+  const cta = root.querySelector<HTMLAnchorElement>(".lt-cta")!;
+
+  let i = 0;
+  let score = 0;
+  let locked = false;
+
+  const progress = (done: number) => {
+    fill.style.width = `${(done / questions.length) * 100}%`;
+    bar.setAttribute("aria-valuenow", String(done));
+  };
+
+  function render() {
+    const cur = questions[i];
+    count.textContent = `Вопрос ${i + 1} из ${questions.length}`;
+    progress(i);
+    qEl.textContent = cur.q;
+    optsEl.replaceChildren(
+      ...cur.options.map((text, idx) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "lt-opt";
+        b.textContent = text;
+        b.addEventListener("click", () => pick(idx, b));
+        return b;
+      }),
+    );
+  }
+
+  function pick(idx: number, btn: HTMLButtonElement) {
+    if (locked) return;
+    locked = true;
+    if (idx === questions[i].answer) score++;
+    btn.classList.add("is-picked");
+    setTimeout(() => {
+      locked = false;
+      i++;
+      if (i < questions.length) render();
+      else finish();
+    }, 260);
+  }
+
+  function finish() {
+    progress(questions.length);
+    const level = [...levels].reverse().find((l) => score >= l.min)!;
+    const pack = options[level.pack];
+    step.hidden = true;
+    top.hidden = true;
+    result.hidden = false;
+    result.querySelector(".lt-score")!.textContent = `${score} из ${questions.length}`;
+    result.querySelector(".lt-level")!.textContent = level.title;
+    result.querySelector(".lt-text")!.textContent = level.text;
+    result.querySelector(".lt-pick span")!.textContent = pack.label;
+    result.querySelector(".lt-pick b")!.textContent = pack.price;
+    cta.dataset.pack = level.pack;
+    cta.dataset.note = `Мини-тест: ${score} из ${questions.length}, ${level.title.toLowerCase()}.`;
+  }
+
+  root.querySelector(".lt-again")!.addEventListener("click", () => {
+    i = 0; score = 0;
+    result.hidden = true;
+    step.hidden = false;
+    top.hidden = false;
+    render();
+  });
+
+  render();
+</script>
+
+<style>
+  .level-grid { display: grid; grid-template-columns: 1fr 1.25fr; gap: var(--space-300); align-items: start; }
+  .lt { padding: var(--space-300); display: grid; gap: var(--space-300); min-height: 360px; align-content: start; }
+  .lt-top { display: grid; gap: var(--space-100); }
+  .lt-count { font-size: 14px; font-weight: 600; color: var(--muted); }
+  .lt-bar { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
+  .lt-bar i { display: block; height: 100%; width: 0; background: var(--seal); border-radius: inherit; transition: width 300ms var(--ease); }
+  .lt-q { font-family: var(--serif); font-size: 24px; line-height: 32px; font-weight: 600; margin-bottom: var(--space-200); }
+  .lt-opts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-100); }
+  .lt-opt {
+    min-height: 56px; padding: var(--space-100) var(--space-200); text-align: left; cursor: pointer;
+    background: var(--surface); border: 1px solid var(--field-line); border-radius: var(--radius);
+    font-size: 16px; font-weight: 600;
+    transition: border-color 150ms var(--ease), background-color 150ms var(--ease), color 150ms var(--ease), transform 150ms var(--ease);
+  }
+  .lt-opt:hover { border-color: var(--ink); transform: translateY(-1px); }
+  .lt-opt.is-picked { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  .lt-result { display: grid; gap: var(--space-100); justify-items: start; }
+  .lt-result[hidden], .lt-step[hidden], .lt-top[hidden] { display: none; }
+  .lt-score { font-family: var(--serif); font-size: 60px; line-height: 60px; font-weight: 600; color: var(--seal); }
+  .lt-level { font-size: 24px; line-height: 32px; }
+  .lt-text { color: var(--muted); max-width: 520px; }
+  .lt-pick { display: flex; justify-content: space-between; gap: var(--space-100); width: 100%; padding: var(--space-100) var(--space-200); background: var(--seal-soft); border-radius: var(--radius-sm); font-weight: 600; }
+  .lt-pick b { color: var(--seal); white-space: nowrap; }
+  .lt-actions { display: flex; flex-wrap: wrap; gap: var(--space-100); margin-top: var(--space-100); }
+  @media (max-width: 860px) {
+    .level-grid { grid-template-columns: 1fr; }
+    .section-head { margin-bottom: 0; }
+  }
+  @media (max-width: 520px) {
+    .lt-opts { grid-template-columns: 1fr; }
+    .lt-q { font-size: 20px; line-height: 28px; }
+  }
+</style>
