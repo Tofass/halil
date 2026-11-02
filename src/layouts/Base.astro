@@ -19,7 +19,7 @@ const year = new Date().getFullYear();
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={url("favicon.svg")} />
-    <meta name="theme-color" content="#e6e2d9" />
+    <meta name="theme-color" content="#0d1117" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:site_name" content="FahriYOS.EDU" />
@@ -32,14 +32,10 @@ const year = new Date().getFullYear();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400;1,600&family=Onest:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap"
     />
     <script is:inline>
       document.documentElement.classList.remove("no-js");
-      try {
-        const t = localStorage.getItem("fahriyos-theme");
-        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
-      } catch {}
     </script>
     <slot name="head" />
   </head>
@@ -57,9 +53,6 @@ const year = new Date().getFullYear();
           <a class="btn btn--accent nav-cta" href={`${home}#contacts`}>Консультация</a>
         </nav>
         <div class="header-tools">
-          <button class="icon-btn theme-toggle" type="button" aria-label="Сменить тему">
-            <Icon name="moon" class="i-moon" /><Icon name="sun" class="i-sun" />
-          </button>
           <a class="btn btn--accent header-cta" href={`${home}#contacts`}>Консультация</a>
           <button class="icon-btn nav-toggle" type="button" aria-label="Меню" aria-expanded="false" aria-controls="site-nav">
             <Icon name="menu" class="i-open" /><Icon name="close" class="i-close" />
@@ -126,15 +119,6 @@ const year = new Date().getFullYear();
       const root = document.documentElement;
       const body = document.body;
 
-      document.querySelector(".theme-toggle")?.addEventListener("click", () => {
-        const dark = root.dataset.theme
-          ? root.dataset.theme === "dark"
-          : matchMedia("(prefers-color-scheme: dark)").matches;
-        const next = dark ? "light" : "dark";
-        root.dataset.theme = next;
-        try { localStorage.setItem("fahriyos-theme", next); } catch {}
-      });
-
       const toggle = document.querySelector<HTMLButtonElement>(".nav-toggle");
       const setNav = (open: boolean) => {
         body.classList.toggle("nav-open", open);
@@ -186,13 +170,7 @@ const year = new Date().getFullYear();
       .header-cta { min-height: 40px; padding: 0 var(--space-200); font-size: 14px; }
       .icon-btn { width: 40px; height: 40px; display: grid; place-items: center; border-radius: var(--radius); border: 1px solid var(--field-line); background: transparent; cursor: pointer; }
       .icon-btn :global(svg) { width: 19px; height: 19px; }
-      :global(.i-sun), :global(.i-close) { display: none; }
-      :global([data-theme="dark"]) :global(.i-sun) { display: block; }
-      :global([data-theme="dark"]) :global(.i-moon) { display: none; }
-      @media (prefers-color-scheme: dark) {
-        :global(:root:not([data-theme="light"])) :global(.i-sun) { display: block; }
-        :global(:root:not([data-theme="light"])) :global(.i-moon) { display: none; }
-      }
+      :global(.i-close) { display: none; }
       .nav-toggle { display: none; }
 
       @media (max-width: 960px) {

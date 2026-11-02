@@ -1,26 +1,26 @@
 :root {
-  /* Paper and ink. */
-  --bg: #e6e2d9;
-  --bg-alt: #f7f4ee;
-  --surface: #fffcf7;
-  --ink: #1c1915;
-  --muted: #5e584f;
-  --line: #c9c2b4;
-  --field-line: #8a8376;
+  /* Dark everywhere, like the reference style: near-black ink, light text. */
+  --bg: #0d1117;
+  --bg-alt: #141a22;
+  --surface: #1a212b;
+  --ink: #f2f0ea;
+  --muted: #a3a9b3;
+  --line: #2a323d;
+  --field-line: #4a5361;
 
-  /* Seal red: prices and the main action only. */
-  --seal: #9e2b22;
-  --seal-hover: #86221b;
-  --seal-ink: #fbfaf6;
-  --seal-soft: #f3e4df;
+  /* Orange accent: prices, the main action and highlights. */
+  --seal: #ff8a4c;
+  --seal-hover: #ffa06b;
+  --seal-ink: #1a1208;
+  --seal-soft: #2e2018;
 
-  /* Blue plates: footer, final call to action, featured package. */
-  --plate: #1b3a4b;
-  --plate-ink: #f4f1ea;
-  --plate-muted: #b4c3cc;
-  --plate-line: rgba(244, 241, 234, 0.22);
+  /* Deepest plates: footer, final call to action, featured package. */
+  --plate: #0a0e13;
+  --plate-ink: #f2f0ea;
+  --plate-muted: #a3a9b3;
+  --plate-line: rgba(242, 240, 234, 0.12);
 
-  /* Bright accent for the dark hero only (8:1 against the plate). */
+  /* Bright accent for the hero glow and the main action on dark. */
   --hero-accent: #ff9a62;
 
   /* Spacing scale: only these values are used. */
@@ -38,53 +38,21 @@
   --space-800: 80px;
   --space-900: 96px;
 
-  /* Everything is nearly square, like a printed form. */
-  --radius: 2px;
-  --radius-sm: 2px;
+  /* Rounded, friendly corners. */
+  --radius: 8px;
+  --radius-sm: 6px;
 
   --gutter: var(--space-200);
   --max: 1180px;
   --header-h: 64px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --serif: Literata, Georgia, "Times New Roman", serif;
+  /* Headings and text use the same bold sans. Kept as an alias so old rules still resolve. */
+  --serif: var(--sans);
   --sans: Onest, system-ui, -apple-system, "Segoe UI", sans-serif;
-  color-scheme: light;
+  color-scheme: dark;
 }
 @media (min-width: 640px) { :root { --gutter: var(--space-400); } }
 @media (min-width: 1024px) { :root { --gutter: var(--space-600); } }
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #14181d;
-    --bg-alt: #191f26;
-    --surface: #1e252d;
-    --ink: #eae6dc;
-    --muted: #a2a79f;
-    --line: #2e3741;
-    --field-line: #6b7480;
-    --seal: #e15a4f;
-    --seal-hover: #ec7168;
-    --seal-ink: #14181d;
-    --seal-soft: #33262a;
-    --plate-line: rgba(244, 241, 234, 0.22);
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #14181d;
-  --bg-alt: #191f26;
-  --surface: #1e252d;
-  --ink: #eae6dc;
-  --muted: #a2a79f;
-  --line: #2e3741;
-  --field-line: #6b7480;
-  --seal: #e15a4f;
-  --seal-hover: #ec7168;
-  --seal-ink: #14181d;
-  --seal-soft: #33262a;
-  --plate-line: rgba(244, 241, 234, 0.22);
-  color-scheme: dark;
-}
 
 *,
 *::before,
@@ -101,14 +69,14 @@ body {
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
-h1, h2, h3, h4 { margin: 0; font-weight: 600; text-wrap: balance; }
-h1, h2 { font-family: var(--serif); overflow-wrap: break-word; }
+h1, h2, h3, h4 { margin: 0; font-weight: 800; text-wrap: balance; letter-spacing: -0.01em; }
+h1, h2 { font-family: var(--sans); overflow-wrap: break-word; }
 p { margin: 0; text-wrap: pretty; }
 ul { margin: 0; padding: 0; }
-b, strong { font-weight: 600; }
+b, strong { font-weight: 700; }
 button { font: inherit; color: inherit; }
-:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-.section--dark :focus-visible, .site-footer :focus-visible { outline-color: var(--plate-ink); }
+:focus-visible { outline: 2px solid var(--seal); outline-offset: 3px; }
+.section--dark :focus-visible, .site-footer :focus-visible { outline-color: var(--seal); }
 
 /* Named text styles (sizes sit on the Tailwind type scale). Mobile first, larger from 768px. */
 .heading-1, h1 { font-size: 36px; line-height: 40px; }
@@ -138,15 +106,13 @@ h3 { font-family: var(--sans); }
 .section { padding: var(--space-600) 0; }
 @media (min-width: 768px) { .section { padding: var(--space-700) 0; } }
 .section--alt { background: var(--bg-alt); }
-.section--dark { background: var(--plate); color: var(--plate-ink); }
-:root[data-theme="dark"] .section--dark { border-block: 1px solid var(--plate-line); }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .section--dark { border-block: 1px solid var(--plate-line); } }
+.section--dark { background: var(--plate); color: var(--plate-ink); border-block: 1px solid var(--plate-line); }
 
 /* Section label: a plain sentence with a short index, e.g. "01 / Как мы работаем". */
 .eyebrow {
-  display: block; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--muted);
+  display: block; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--seal);
 }
-.section--dark .eyebrow { color: var(--plate-muted); }
+.section--dark .eyebrow { color: var(--seal); }
 .section-head { max-width: 680px; margin-bottom: var(--space-300); display: grid; gap: var(--space-100); }
 @media (min-width: 768px) { .section-head { margin-bottom: var(--space-500); } }
 .section-head p { color: var(--muted); font-size: 16px; line-height: 24px; }
@@ -154,25 +120,23 @@ h3 { font-family: var(--sans); }
 .section--dark .section-head p { color: var(--plate-muted); }
 .muted { color: var(--muted); }
 
-/* Buttons: rectangular, 2px corners, no lift on hover. */
+/* Buttons: rounded, no lift on hover. */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--space-75);
   min-height: 48px; padding: var(--space-100) var(--space-300); border-radius: var(--radius); border: 1px solid transparent;
-  font-size: 16px; line-height: 24px; font-weight: 600; text-decoration: none; cursor: pointer;
+  font-size: 16px; line-height: 24px; font-weight: 700; text-decoration: none; cursor: pointer;
   transition: background-color 200ms var(--ease), border-color 200ms var(--ease), color 200ms var(--ease);
 }
 .btn--accent { background: var(--seal); color: var(--seal-ink); }
 .btn--accent:hover { background: var(--seal-hover); }
 .btn--ghost { border-color: currentColor; background: transparent; color: inherit; }
 .btn--ghost:hover { background: color-mix(in srgb, currentColor 8%, transparent); }
-/* On blue plates the red button loses to the background (1.6:1), so the main action turns paper. */
-.btn--paper { background: #fbfaf6; color: var(--plate); }
-.btn--paper:hover { background: #e6e2d9; }
 /* Main action on the dark hero: bright, with a soft glow. */
-.btn--glow { background: var(--hero-accent); color: #1c1915; box-shadow: 0 8px 28px rgba(255, 154, 98, 0.28); }
+.btn--glow { background: var(--hero-accent); color: #1a1208; box-shadow: 0 8px 28px rgba(255, 154, 98, 0.28); }
 .btn--glow:hover { background: #ffad7e; }
-.btn--light { background: #fbfaf6; color: var(--plate); }
-.btn--light:hover { background: #e6e2d9; }
+/* Light button on the deepest plates. */
+.btn--paper, .btn--light { background: #f2f0ea; color: var(--plate); }
+.btn--paper:hover, .btn--light:hover { background: #dcd9d0; }
 .btn--block { width: 100%; }
 .btn svg { width: 20px; height: 20px; flex: none; }
 

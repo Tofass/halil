@@ -79,8 +79,6 @@ import { packages, singleServices } from "../data/packages";
   .pack--featured .pack-price b { color: var(--plate-ink); }
   .pack--featured li :global(svg) { color: var(--plate-ink); }
   .pack--featured :focus-visible { outline-color: var(--plate-ink); }
-  :global([data-theme="dark"]) .pack--featured { border-color: var(--plate-line); border-top-color: var(--plate-ink); }
-  @media (prefers-color-scheme: dark) { :global(:root:not([data-theme="light"])) .pack--featured { border-color: var(--plate-line); border-top-color: var(--plate-ink); } }
 
   .singles { margin-top: var(--space-200); padding: var(--space-300); display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-300); align-items: center; }
   .singles h3 { font-size: 20px; margin-bottom: var(--space-50); }

@@ -34,14 +34,14 @@ const chips = ["2, 6, 18, 54, …", "3x + 5 = 20", "15% от 240", "a : b = 2 : 
 </section>
 
 <style>
-  .hero { position: relative; isolation: isolate; overflow: hidden; background: #0f2531; color: var(--plate-ink); padding: var(--space-700) 0; }
+  .hero { position: relative; isolation: isolate; overflow: hidden; background: var(--bg); color: var(--plate-ink); padding: var(--space-700) 0; }
   .hero-bg, .hero-bg img { position: absolute; inset: 0; width: 100%; height: 100%; }
   .hero-bg img { object-fit: cover; object-position: 62% 40%; animation: drift 24s ease-in-out infinite alternate; }
   .hero-bg { z-index: -3; }
-  .hero-shade { position: absolute; inset: 0; z-index: -2; background: linear-gradient(100deg, rgba(10, 24, 32, 0.94) 0%, rgba(10, 24, 32, 0.78) 48%, rgba(10, 24, 32, 0.38) 100%); }
+  .hero-shade { position: absolute; inset: 0; z-index: -2; background: linear-gradient(100deg, rgba(13, 17, 23, 0.95) 0%, rgba(13, 17, 23, 0.8) 48%, rgba(13, 17, 23, 0.4) 100%); }
 
   .hero-grid { display: grid; gap: var(--space-300); max-width: var(--max); min-height: 520px; align-content: center; justify-items: start; }
-  .hero-kicker { display: inline-flex; align-items: center; gap: var(--space-100); font-size: 14px; line-height: 20px; font-weight: 600; color: var(--plate-muted); padding: var(--space-50) var(--space-200); border: 1px solid var(--plate-line); border-radius: 999px; background: rgba(10, 24, 32, 0.5); }
+  .hero-kicker { display: inline-flex; align-items: center; gap: var(--space-100); font-size: 14px; line-height: 20px; font-weight: 600; color: var(--plate-muted); padding: var(--space-50) var(--space-200); border: 1px solid var(--plate-line); border-radius: 999px; background: rgba(13, 17, 23, 0.5); }
   .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--hero-accent); animation: pulse 2s ease-in-out infinite; }
   h1 { max-width: 760px; color: var(--plate-ink); }
   h1 em { font-style: italic; font-weight: 600; color: var(--hero-accent); }
@@ -75,7 +75,7 @@ const chips = ["2, 6, 18, 54, …", "3x + 5 = 20", "15% от 240", "a : b = 2 : 
   @media (max-width: 900px) {
     .chip-2, .chip-4 { display: none; }
     .chip-1 { top: 8%; right: 5%; } .chip-3 { top: 40%; right: 4%; } .chip-5 { top: 88%; right: 6%; }
-    .hero-shade { background: linear-gradient(180deg, rgba(10, 24, 32, 0.9) 0%, rgba(10, 24, 32, 0.8) 100%); }
+    .hero-shade { background: linear-gradient(180deg, rgba(13, 17, 23, 0.92) 0%, rgba(13, 17, 23, 0.82) 100%); }
   }
   @media (max-width: 560px) {
     .hero { padding: var(--space-600) 0; }
