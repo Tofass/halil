@@ -21,7 +21,6 @@
   --plate-line: rgba(244, 241, 234, 0.22);
 
   /* Bright accent for the dark hero only (8:1 against the plate). */
-  --hero-accent: #ff9a62;
 
   /* Spacing scale: only these values are used. */
   --space-0: 0;
@@ -169,8 +168,6 @@ h3 { font-family: var(--sans); }
 .btn--paper { background: #fbfaf6; color: var(--plate); }
 .btn--paper:hover { background: #e6e2d9; }
 /* Main action on the dark hero: bright, with a soft glow. */
-.btn--glow { background: var(--hero-accent); color: #1c1915; box-shadow: 0 8px 28px rgba(255, 154, 98, 0.28); }
-.btn--glow:hover { background: #ffad7e; }
 .btn--light { background: #fbfaf6; color: var(--plate); }
 .btn--light:hover { background: #e6e2d9; }
 .btn--block { width: 100%; }

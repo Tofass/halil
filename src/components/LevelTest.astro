@@ -130,17 +130,17 @@ const payload = JSON.stringify({ questions, levels, options });
   .lt { padding: var(--space-300); display: grid; gap: var(--space-300); min-height: 360px; align-content: start; }
   .lt-top { display: grid; gap: var(--space-100); }
   .lt-count { font-size: 14px; font-weight: 600; color: var(--muted); }
-  .lt-bar { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
-  .lt-bar i { display: block; height: 100%; width: 0; background: var(--seal); border-radius: inherit; transition: width 300ms var(--ease); }
+  .lt-bar { height: 4px; background: var(--line); border-radius: 0; overflow: hidden; }
+  .lt-bar i { display: block; height: 100%; width: 0; background: var(--seal); transition: width 300ms var(--ease); }
   .lt-q { font-family: var(--serif); font-size: 24px; line-height: 32px; font-weight: 600; margin-bottom: var(--space-200); }
   .lt-opts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-100); }
   .lt-opt {
     min-height: 56px; padding: var(--space-100) var(--space-200); text-align: left; cursor: pointer;
     background: var(--surface); border: 1px solid var(--field-line); border-radius: var(--radius);
     font-size: 16px; font-weight: 600;
-    transition: border-color 150ms var(--ease), background-color 150ms var(--ease), color 150ms var(--ease), transform 150ms var(--ease);
+    transition: border-color 150ms var(--ease), background-color 150ms var(--ease), color 150ms var(--ease);
   }
-  .lt-opt:hover { border-color: var(--ink); transform: translateY(-1px); }
+  .lt-opt:hover { border-color: var(--ink); }
   .lt-opt.is-picked { background: var(--ink); border-color: var(--ink); color: var(--bg); }
   .lt-result { display: grid; gap: var(--space-100); justify-items: start; }
   .lt-result[hidden], .lt-step[hidden], .lt-top[hidden] { display: none; }
