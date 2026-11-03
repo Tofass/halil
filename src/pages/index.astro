@@ -10,11 +10,38 @@ import Quiz from "../components/Quiz.astro";
 import Tryos from "../components/Tryos.astro";
 import FaqPreview from "../components/FaqPreview.astro";
 import Contact from "../components/Contact.astro";
+import { faq } from "../data/faq";
+import { WA_LINK, WA_DISPLAY, TG_CHANNEL, socials } from "../data/site";
+
+// Structured data for search engines: organisation and the FAQ text shown on the page.
+const blockText = (b: string | { lead?: string; list: string[] }) =>
+  typeof b === "string" ? b : [b.lead, ...b.list].filter(Boolean).join(" ");
+const faqItems = faq.flatMap((c) => c.items).map((qa) => ({
+  "@type": "Question",
+  name: qa.q,
+  acceptedAnswer: { "@type": "Answer", text: qa.a.map(blockText).join(" ") },
+}));
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationalOrganization",
+      name: "FahriYOS.EDU",
+      url: "https://tofass.github.io/halil/",
+      description: "Подготовка к TR-YÖS, подбор университета, подача документов, ВНЖ и переезд в Турцию.",
+      telephone: WA_DISPLAY,
+      sameAs: [TG_CHANNEL, ...socials.filter((s) => s.icon !== "whatsapp" && s.icon !== "telegram").map((s) => s.href)],
+      contactPoint: { "@type": "ContactPoint", contactType: "customer support", url: WA_LINK, availableLanguage: ["ru"] },
+    },
+    { "@type": "FAQPage", mainEntity: faqItems },
+  ],
+};
 ---
 <Base
   title="FahriYOS.EDU — поступление в университеты Турции и подготовка к TR-YÖS"
   description="Подготовка к TR-YÖS, подбор университета, подача документов, денклик, ВНЖ, жильё и переезд в Турцию. Пакеты сопровождения от $70."
 >
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
   <Hero />
   <LevelTest />
   <Tagline />
