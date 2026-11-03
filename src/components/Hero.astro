@@ -44,6 +44,13 @@ const chips = ["2, 6, 18, 54, …", "3x + 5 = 20", "15% от 240", "a : b = 2 : 
   .hero-kicker { display: inline-flex; align-items: center; gap: var(--space-100); font-size: 14px; line-height: 20px; font-weight: 600; color: var(--plate-muted); padding: var(--space-50) var(--space-200); border: 1px solid var(--plate-line); border-radius: 999px; background: rgba(13, 17, 23, 0.5); }
   .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--hero-accent); animation: pulse 2s ease-in-out infinite; }
   h1 { max-width: 760px; color: var(--plate-ink); }
+  /* One clear hierarchy: a large headline, a quieter lead, one main action. */
+  @media (min-width: 1024px) {
+    h1 { font-size: 76px; line-height: 0.98; letter-spacing: -0.02em; }
+  }
+  .hero-sub { font-size: 17px; line-height: 26px; max-width: 480px; }
+  .hero-cta .btn--glow { min-height: 56px; padding: var(--space-100) var(--space-400); font-size: 17px; }
+  .hero-cta .btn--ghost { min-height: 56px; border-color: color-mix(in srgb, var(--plate-ink) 35%, transparent); }
   h1 em { font-style: italic; font-weight: 600; color: var(--hero-accent); }
   .hero-sub { max-width: 560px; font-size: 18px; line-height: 28px; color: var(--plate-muted); }
   .hero-cta { display: flex; flex-wrap: wrap; gap: var(--space-100); }
