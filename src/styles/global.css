@@ -1,27 +1,28 @@
 :root {
-  /* Dark everywhere, like the reference style: near-black ink, light text. */
-  --bg: #0d1117;
-  --bg-alt: #141a22;
-  --surface: #1a212b;
-  --ink: #f2f0ea;
-  --muted: #a3a9b3;
-  --line: #2a323d;
-  --field-line: #4a5361;
+  /* Light: white paper, near-black ink. */
+  --bg: #ffffff;
+  --bg-alt: #f6f6f4;
+  --surface: #ffffff;
+  --ink: #14171c;
+  --muted: #5b6370;
+  --line: #e4e6ea;
+  --field-line: #9aa1ab;
 
-  /* Orange accent: prices, the main action and highlights. */
-  --seal: #ff8a4c;
-  --seal-hover: #ffa06b;
-  --seal-ink: #1a1208;
-  --seal-soft: #2e2018;
+  /* Orange: the button fill is bright, the text accent is darker so it reads on white (>= 4.5:1). */
+  --cta: #ff7a2e;
+  --cta-hover: #ff8f4d;
+  --seal: #c2410c;
+  --seal-hover: #a93a0a;
+  --seal-ink: #14171c;
+  --seal-soft: #fff1e8;
 
-  /* Deepest plates: footer, final call to action, featured package. */
-  --plate: #0a0e13;
-  --plate-ink: #f2f0ea;
-  --plate-muted: #a3a9b3;
-  --plate-line: rgba(242, 240, 234, 0.12);
+  /* Light plates: footer, contact, featured package. */
+  --plate: #f4f4f1;
+  --plate-ink: #14171c;
+  --plate-muted: #5b6370;
+  --plate-line: #e4e6ea;
 
-  /* Bright accent for the hero glow and the main action on dark. */
-  --hero-accent: #ff9a62;
+  --hero-accent: #c2410c;
 
   /* Spacing scale: only these values are used. */
   --space-0: 0;
@@ -127,16 +128,16 @@ h3 { font-family: var(--sans); }
   font-size: 16px; line-height: 24px; font-weight: 700; text-decoration: none; cursor: pointer;
   transition: background-color 200ms var(--ease), border-color 200ms var(--ease), color 200ms var(--ease);
 }
-.btn--accent { background: var(--seal); color: var(--seal-ink); }
-.btn--accent:hover { background: var(--seal-hover); }
+.btn--accent { background: var(--cta); color: var(--seal-ink); }
+.btn--accent:hover { background: var(--cta-hover); }
 .btn--ghost { border-color: currentColor; background: transparent; color: inherit; }
 .btn--ghost:hover { background: color-mix(in srgb, currentColor 8%, transparent); }
 /* Main action on the dark hero: bright, with a soft glow. */
-.btn--glow { background: var(--hero-accent); color: #1a1208; box-shadow: 0 8px 28px rgba(255, 154, 98, 0.28); }
-.btn--glow:hover { background: #ffad7e; }
+.btn--glow { background: var(--cta); color: var(--seal-ink); }
+.btn--glow:hover { background: var(--cta-hover); }
 /* Light button on the deepest plates. */
-.btn--paper, .btn--light { background: #f2f0ea; color: var(--plate); }
-.btn--paper:hover, .btn--light:hover { background: #dcd9d0; }
+.btn--paper, .btn--light { background: var(--ink); color: #ffffff; }
+.btn--paper:hover, .btn--light:hover { background: #2b3038; }
 .btn--block { width: 100%; }
 .btn svg { width: 20px; height: 20px; flex: none; }
 

@@ -4,94 +4,57 @@ import { url } from "../data/site";
 
 // Facts taken from the previous site versions, nothing invented.
 const proof = ["Группы до 5 человек", "3 урока в неделю", "TR-YÖS: 100 минут, 80 вопросов"];
-// Decorative floating chips: the exam is logic and maths, so the first screen shows it.
-const chips = ["2, 6, 18, 54, …", "3x + 5 = 20", "15% от 240", "a : b = 2 : 3", "180 км / 3 ч"];
 ---
 <section class="hero" aria-labelledby="hero-title">
-  <picture class="hero-bg" aria-hidden="true">
-    <source media="(max-width: 760px)" srcset={url("assets/hero-960.webp")} />
-    <img src={url("assets/hero.webp")} alt="" width="1920" height="1200" fetchpriority="high" />
-  </picture>
-  <div class="hero-shade" aria-hidden="true"></div>
-  <ul class="chips" aria-hidden="true">
-    {chips.map((c, n) => <li class={`chip chip-${n + 1}`}>{c}</li>)}
-  </ul>
-
   <div class="wrap hero-grid">
-    <p class="hero-kicker rise" style="--d: 0ms"><span class="dot"></span> Поступление в университеты Турции</p>
-    <h1 id="hero-title" class="rise" style="--d: 100ms">От мечты о Турции — <em>до студенческого билета</em></h1>
-    <p class="hero-sub rise" style="--d: 200ms">
-      Готовим к TR-YÖS, подбираем университет, собираем документы и помогаем переехать. Можно взять один шаг или весь путь целиком.
-    </p>
-    <div class="hero-cta rise" style="--d: 300ms">
-      <a class="btn btn--glow" href="#level">Пройти мини-тест <Icon name="arrow" /></a>
-      <a class="btn btn--ghost" href="#contacts">Получить консультацию</a>
+    <div class="hero-copy">
+      <p class="hero-kicker"><span class="dot" aria-hidden="true"></span> Поступление в университеты Турции</p>
+      <h1 id="hero-title">От мечты о Турции <em>до студенческого билета</em></h1>
+      <p class="hero-sub">
+        Готовим к TR-YÖS, подбираем университет, собираем документы и помогаем переехать. Можно взять один шаг или весь путь целиком.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn--accent" href="#level">Пройти мини-тест <Icon name="arrow" /></a>
+        <a class="btn btn--ghost" href="#contacts">Получить консультацию</a>
+      </div>
+      <ul class="hero-proof">
+        {proof.map((c) => <li>{c}</li>)}
+      </ul>
     </div>
-    <ul class="hero-proof rise" style="--d: 400ms">
-      {proof.map((c) => <li>{c}</li>)}
-    </ul>
+
+    <figure class="hero-photo">
+      <picture>
+        <source media="(max-width: 760px)" srcset={url("assets/hero-960.webp")} />
+        <img src={url("assets/hero.webp")} alt="Стамбул на закате: Галатский мост и мечеть Йени-Джами" width="1920" height="1200" fetchpriority="high" />
+      </picture>
+      <figcaption>Стамбул. Галатский мост и мечеть Йени-Джами</figcaption>
+    </figure>
   </div>
 </section>
 
 <style>
-  .hero { position: relative; isolation: isolate; overflow: hidden; background: var(--bg); color: var(--plate-ink); padding: var(--space-700) 0; }
-  .hero-bg, .hero-bg img { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .hero-bg img { object-fit: cover; object-position: 62% 40%; animation: drift 24s ease-in-out infinite alternate; }
-  .hero-bg { z-index: -3; }
-  .hero-shade { position: absolute; inset: 0; z-index: -2; background: linear-gradient(100deg, rgba(13, 17, 23, 0.95) 0%, rgba(13, 17, 23, 0.8) 48%, rgba(13, 17, 23, 0.4) 100%); }
-
-  .hero-grid { display: grid; gap: var(--space-300); max-width: var(--max); min-height: 520px; align-content: center; justify-items: start; }
-  .hero-kicker { display: inline-flex; align-items: center; gap: var(--space-100); font-size: 14px; line-height: 20px; font-weight: 600; color: var(--plate-muted); padding: var(--space-50) var(--space-200); border: 1px solid var(--plate-line); border-radius: 999px; background: rgba(13, 17, 23, 0.5); }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--hero-accent); animation: pulse 2s ease-in-out infinite; }
-  h1 { max-width: 760px; color: var(--plate-ink); }
-  /* One clear hierarchy: a large headline, a quieter lead, one main action. */
-  @media (min-width: 1024px) {
-    h1 { font-size: 76px; line-height: 0.98; letter-spacing: -0.02em; }
-  }
-  .hero-sub { font-size: 17px; line-height: 26px; max-width: 480px; }
-  .hero-cta .btn--glow { min-height: 56px; padding: var(--space-100) var(--space-400); font-size: 17px; }
-  .hero-cta .btn--ghost { min-height: 56px; border-color: color-mix(in srgb, var(--plate-ink) 35%, transparent); }
-  h1 em { font-style: italic; font-weight: 600; color: var(--hero-accent); }
-  .hero-sub { max-width: 560px; font-size: 18px; line-height: 28px; color: var(--plate-muted); }
-  .hero-cta { display: flex; flex-wrap: wrap; gap: var(--space-100); }
-  .hero-proof { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-75) var(--space-400); font-size: 14px; line-height: 20px; color: var(--plate-muted); padding-top: var(--space-200); border-top: 1px solid var(--plate-line); }
+  .hero { padding: var(--space-600) 0; background: var(--bg); }
+  .hero-grid { display: grid; gap: var(--space-400); align-items: center; }
+  .hero-kicker { display: inline-flex; align-items: center; gap: var(--space-100); font-size: 14px; line-height: 20px; font-weight: 600; color: var(--seal); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cta); }
+  h1 { margin-top: var(--space-200); max-width: 640px; }
+  h1 em { font-style: normal; color: var(--seal); }
+  .hero-sub { margin-top: var(--space-300); max-width: 520px; font-size: 18px; line-height: 28px; color: var(--muted); }
+  .hero-cta { margin-top: var(--space-400); display: flex; flex-wrap: wrap; gap: var(--space-100); }
+  .hero-cta .btn { min-height: 52px; }
+  .hero-cta .btn--ghost { border-color: var(--ink); color: var(--ink); }
+  .hero-proof { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-75) var(--space-400); margin-top: var(--space-400); padding-top: var(--space-200); border-top: 1px solid var(--line); font-size: 14px; line-height: 20px; color: var(--muted); }
   .hero-proof li { display: flex; gap: var(--space-100); }
-  .hero-proof li::before { content: ""; width: 6px; height: 6px; margin-top: 7px; flex: none; background: var(--hero-accent); }
+  .hero-proof li::before { content: ""; width: 6px; height: 6px; margin-top: 7px; flex: none; background: var(--cta); border-radius: 50%; }
 
-  /* Floating chips: only transform and opacity animate. */
-  .chips { list-style: none; position: absolute; inset: 0; z-index: -1; pointer-events: none; }
-  .chip {
-    position: absolute; padding: var(--space-75) var(--space-200); border: 1px solid var(--plate-line); border-radius: 999px;
-    background: rgba(244, 241, 234, 0.08); backdrop-filter: blur(4px); color: var(--plate-ink);
-    font: 500 15px/20px var(--serif); font-style: italic; white-space: nowrap;
-    animation: float 7s ease-in-out infinite;
-  }
-  .chip-1 { top: 14%; right: 9%; animation-delay: -1s; }
-  .chip-2 { top: 32%; right: 24%; animation-delay: -3s; }
-  .chip-3 { top: 52%; right: 8%; animation-delay: -5s; }
-  .chip-4 { top: 70%; right: 26%; animation-delay: -2s; }
-  .chip-5 { top: 84%; right: 10%; animation-delay: -4s; }
+  .hero-photo { margin: 0; border-radius: var(--radius); overflow: hidden; background: var(--bg-alt); }
+  .hero-photo img { width: 100%; height: auto; aspect-ratio: 5 / 4; object-fit: cover; object-position: 60% 40%; }
+  .hero-photo figcaption { padding: var(--space-75) var(--space-200); font-size: 14px; line-height: 20px; color: var(--muted); }
 
-  .rise { animation: rise 700ms var(--ease) both; animation-delay: var(--d, 0ms); }
-
-  @keyframes rise { from { opacity: 0; transform: translateY(var(--space-300)); } to { opacity: 1; transform: none; } }
-  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
-  @keyframes drift { from { transform: scale(1.04); } to { transform: scale(1.12) translateX(-1.5%); } }
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
-
-  @media (max-width: 900px) {
-    .chip-2, .chip-4 { display: none; }
-    .chip-1 { top: 8%; right: 5%; } .chip-3 { top: 40%; right: 4%; } .chip-5 { top: 88%; right: 6%; }
-    .hero-shade { background: linear-gradient(180deg, rgba(13, 17, 23, 0.92) 0%, rgba(13, 17, 23, 0.82) 100%); }
+  @media (min-width: 1024px) {
+    .hero { padding: var(--space-800) 0; }
+    .hero-grid { grid-template-columns: 1fr 1.05fr; gap: var(--space-600); }
+    h1 { font-size: 72px; line-height: 0.98; letter-spacing: -0.02em; }
   }
-  @media (max-width: 560px) {
-    .hero { padding: var(--space-600) 0; }
-    .hero-grid { min-height: 0; }
-    .chip { display: none; }
-    .hero-cta { width: 100%; }
-    .hero-cta .btn { flex: 1 1 100%; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-bg img, .chip, .dot, .rise { animation: none !important; }
-  }
+  @media (max-width: 560px) { .hero-cta .btn { flex: 1 1 100%; } }
 </style>
