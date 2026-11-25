@@ -2,10 +2,15 @@
 import Icon from "./Icon.astro";
 import { questions, levels } from "../data/leveltest";
 import { requestOptions } from "../data/packages";
+import { url } from "../data/site";
 
 const options = Object.fromEntries(requestOptions.map((o) => [o.id, { label: o.label, price: o.price }]));
 // The answer key stays in the page data: this is a self-check, not an exam.
-const payload = JSON.stringify({ questions, levels, options });
+const payload = JSON.stringify({
+  questions: questions.map((q) => ({ ...q, img: q.img ? url(q.img) : undefined })),
+  levels,
+  options,
+});
 ---
 <section class="section section--alt" id="level" aria-labelledby="level-title">
   <div class="wrap level-grid">
@@ -23,6 +28,7 @@ const payload = JSON.stringify({ questions, levels, options });
 
       <div class="lt-step">
         <h3 class="lt-q"></h3>
+        <img class="lt-fig" alt="" hidden width="300" height="270" />
         <div class="lt-opts" role="group" aria-label="Варианты ответа"></div>
       </div>
 
@@ -42,7 +48,7 @@ const payload = JSON.stringify({ questions, levels, options });
 </section>
 
 <script>
-  type Q = { q: string; options: string[]; answer: number };
+  type Q = { q: string; options: string[]; answer: number; img?: string; alt?: string };
   type L = { min: number; title: string; text: string; pack: string };
   const root = document.querySelector<HTMLElement>(".lt")!;
   const { questions, levels, options } = JSON.parse(root.dataset.lt!) as {
@@ -54,6 +60,7 @@ const payload = JSON.stringify({ questions, levels, options });
   const fill = bar.querySelector<HTMLElement>("i")!;
   const step = root.querySelector<HTMLElement>(".lt-step")!;
   const qEl = root.querySelector<HTMLElement>(".lt-q")!;
+  const figEl = root.querySelector<HTMLImageElement>(".lt-fig")!;
   const optsEl = root.querySelector<HTMLElement>(".lt-opts")!;
   const result = root.querySelector<HTMLElement>(".lt-result")!;
   const top = root.querySelector<HTMLElement>(".lt-top")!;
@@ -73,6 +80,8 @@ const payload = JSON.stringify({ questions, levels, options });
     count.textContent = `Вопрос ${i + 1} из ${questions.length}`;
     progress(i);
     qEl.textContent = cur.q;
+    figEl.hidden = !cur.img;
+    if (cur.img) { figEl.src = cur.img; figEl.alt = cur.alt ?? ""; }
     optsEl.replaceChildren(
       ...cur.options.map((text, idx) => {
         const b = document.createElement("button");
@@ -133,15 +142,17 @@ const payload = JSON.stringify({ questions, levels, options });
   .lt-bar { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
   .lt-bar i { display: block; height: 100%; width: 0; background: var(--seal); border-radius: inherit; transition: width 300ms var(--ease); }
   .lt-q { font-family: var(--serif); font-size: 24px; line-height: 32px; font-weight: 600; margin-bottom: var(--space-200); }
+  .lt-fig { display: block; width: 100%; max-width: 300px; height: auto; margin: 0 0 var(--space-200); background: var(--surface); border-radius: var(--radius); }
+  .lt-fig[hidden] { display: none; }
   .lt-opts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-100); }
-  .lt-opt {
+  :global(.lt-opt) {
     min-height: 56px; padding: var(--space-100) var(--space-200); text-align: left; cursor: pointer;
     background: var(--surface); border: 1px solid var(--field-line); border-radius: var(--radius);
     font-size: 16px; font-weight: 600;
     transition: border-color 150ms var(--ease), background-color 150ms var(--ease), color 150ms var(--ease), transform 150ms var(--ease);
   }
-  .lt-opt:hover { border-color: var(--ink); transform: translateY(-1px); }
-  .lt-opt.is-picked { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  :global(.lt-opt):hover { border-color: var(--ink); transform: translateY(-1px); }
+  :global(.lt-opt.is-picked) { background: var(--ink); border-color: var(--ink); color: var(--bg); }
   .lt-result { display: grid; gap: var(--space-100); justify-items: start; }
   .lt-result[hidden], .lt-step[hidden], .lt-top[hidden] { display: none; }
   .lt-score { font-family: var(--serif); font-size: 60px; line-height: 60px; font-weight: 600; color: var(--seal); }

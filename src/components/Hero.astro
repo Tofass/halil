@@ -34,7 +34,10 @@ const chips = ["2, 6, 18, 54, …", "3x + 5 = 20", "15% от 240", "a : b = 2 : 
 </section>
 
 <style>
-  .hero { position: relative; isolation: isolate; overflow: hidden; background: var(--bg); color: var(--plate-ink); padding: var(--space-700) 0; }
+  .hero {
+    /* The photo hero stays dark: light text colours are local to it. */
+    --plate-ink: #fdfaf3; --plate-muted: #e8e0d0; --plate-line: rgba(253, 250, 243, 0.3);
+    position: relative; isolation: isolate; overflow: hidden; background: #14110f; color: var(--plate-ink); padding: var(--space-700) 0; }
   .hero-bg, .hero-bg img { position: absolute; inset: 0; width: 100%; height: 100%; }
   .hero-bg img { object-fit: cover; object-position: 62% 40%; animation: drift 24s ease-in-out infinite alternate; }
   .hero-bg { z-index: -3; }
