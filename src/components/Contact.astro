@@ -1,7 +1,7 @@
 ---
 import Icon from "./Icon.astro";
 import { requestOptions } from "../data/packages";
-import { WA_DISPLAY, WA_LINK, WA_NUMBER, url } from "../data/site";
+import { WA_DISPLAY, WA_LINK, WA_NUMBER, TG_LINK, TG_USERNAME, url } from "../data/site";
 ---
 <section class="section" id="contacts" aria-labelledby="contacts-title">
   <div class="wrap">
@@ -14,14 +14,19 @@ import { WA_DISPLAY, WA_LINK, WA_NUMBER, url } from "../data/site";
       <div class="contact-text">
       <span class="eyebrow">07 / Контакты</span>
       <h2 id="contacts-title">Получите консультацию</h2>
-      <p>Расскажите о целях — подскажем маршрут, сроки и нужные шаги. Отвечаем в WhatsApp.</p>
-      <a class="btn btn--light" href={WA_LINK} target="_blank" rel="noopener noreferrer">
-        <Icon name="whatsapp" /> {WA_DISPLAY}
-      </a>
+      <p>Расскажите о целях — подскажем маршрут, сроки и нужные шаги. Отвечаем в WhatsApp и Telegram.</p>
+      <div class="contact-links">
+        <a class="btn btn--light" href={WA_LINK} target="_blank" rel="noopener noreferrer">
+          <Icon name="whatsapp" /> {WA_DISPLAY}
+        </a>
+        <a class="btn btn--ghost" href={TG_LINK} target="_blank" rel="noopener noreferrer">
+          <Icon name="send" /> @{TG_USERNAME}
+        </a>
+      </div>
       </div>
     </div>
 
-    <form class="contact-form" id="contact-form" novalidate data-wa={WA_NUMBER}>
+    <form class="contact-form" id="contact-form" novalidate data-wa={WA_NUMBER} data-tg={TG_LINK}>
       <label>
         <span>Пакет или услуга</span>
         <select name="package" required>
@@ -38,17 +43,20 @@ import { WA_DISPLAY, WA_LINK, WA_NUMBER, url } from "../data/site";
           <input name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" />
         </label>
         <label>
-          <span>Ваш WhatsApp *</span>
-          <input name="contact" type="text" autocomplete="tel" placeholder="+90… или +7…" required />
+          <span>Ваш контакт *</span>
+          <input name="contact" type="text" autocomplete="tel" placeholder="+90… или @username" required />
         </label>
       </div>
       <label>
         <span>Сообщение</span>
         <textarea name="message" rows="4" placeholder="Страна, класс, желаемая специальность, вопросы"></textarea>
       </label>
-      <button class="btn btn--accent btn--block" type="submit"><Icon name="whatsapp" /> Отправить в WhatsApp</button>
+      <div class="send-row">
+        <button class="btn btn--accent" type="submit" value="whatsapp"><Icon name="whatsapp" /> В WhatsApp</button>
+        <button class="btn btn--ghost" type="submit" value="telegram"><Icon name="send" /> В Telegram</button>
+      </div>
       <p class="form-status" role="status" hidden></p>
-      <p class="form-hint muted">Откроется WhatsApp с готовым текстом — нажмите «Отправить» в приложении.</p>
+      <p class="form-hint muted">WhatsApp откроется с готовым текстом. В Telegram текст заявки копируется — вставьте его в чат.</p>
     </form>
   </div>
   </div>
@@ -76,6 +84,7 @@ import { WA_DISPLAY, WA_LINK, WA_NUMBER, url } from "../data/site";
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+    const channel = (e as SubmitEvent).submitter instanceof HTMLButtonElement ? (e as SubmitEvent).submitter!.getAttribute("value") : "whatsapp";
     const data = new FormData(form);
     const name = String(data.get("name") || "").trim();
     const contact = String(data.get("contact") || "").trim();
@@ -88,7 +97,7 @@ import { WA_DISPLAY, WA_LINK, WA_NUMBER, url } from "../data/site";
       return;
     }
     if (!contact) {
-      show("Укажите номер WhatsApp, чтобы мы могли ответить.", "err");
+      show("Укажите номер или @username, чтобы мы могли ответить.", "err");
       form.querySelector<HTMLInputElement>("[name='contact']")!.focus();
       return;
     }
@@ -104,7 +113,17 @@ import { WA_DISPLAY, WA_LINK, WA_NUMBER, url } from "../data/site";
       `Мой контакт: ${contact}`,
     ].filter(Boolean);
 
-    window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener");
+    const text = lines.join("\n");
+    if (channel === "telegram") {
+      // A link to a personal chat cannot prefill the text, so the request is copied to the clipboard first.
+      const copied = navigator.clipboard ? navigator.clipboard.writeText(text).then(() => true, () => false) : Promise.resolve(false);
+      window.open(form.dataset.tg, "_blank", "noopener");
+      copied.then((ok) => show(ok
+        ? "Telegram открыт, текст заявки скопирован: вставьте его в чат и отправьте."
+        : "Telegram открыт. Напишите в чат свою заявку: скопировать текст автоматически не получилось.", "ok"));
+      return;
+    }
+    window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
     show("WhatsApp открыт с текстом заявки. Нажмите «Отправить» в приложении, чтобы мы её получили.", "ok");
   });
 </script>
@@ -113,7 +132,7 @@ import { WA_DISPLAY, WA_LINK, WA_NUMBER, url } from "../data/site";
   .contact { display: grid; grid-template-columns: 1fr 1.15fr; overflow: hidden; padding: 0; }
   .contact-visual { display: flex; flex-direction: column; background: var(--plate); color: var(--plate-ink); }
   .contact-photo { margin: 0; display: flex; flex-direction: column; color: var(--plate-muted); }
-  .contact-photo img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0; }
+  .contact-photo img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius); }
   .contact-photo figcaption { padding: var(--space-75) var(--space-300) 0; font-size: 14px; line-height: 20px; }
   .contact-text { padding: var(--space-300); display: grid; gap: var(--space-100); justify-items: start; }
   .contact-text .eyebrow { color: var(--plate-muted); }
@@ -135,6 +154,9 @@ import { WA_DISPLAY, WA_LINK, WA_NUMBER, url } from "../data/site";
   .form-status[data-kind="ok"] { background: color-mix(in srgb, #2e8b57 15%, transparent); color: color-mix(in srgb, #2e8b57 80%, var(--ink)); }
   .form-status[data-kind="err"] { background: color-mix(in srgb, #c0392b 14%, transparent); color: color-mix(in srgb, #c0392b 80%, var(--ink)); }
   .form-hint { font-size: 14px; }
+  .contact-links { display: flex; flex-wrap: wrap; gap: var(--space-100); margin-top: var(--space-75); }
+  .send-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-100); }
+  @media (max-width: 520px) { .send-row { grid-template-columns: 1fr; } }
 
   @media (max-width: 860px) {
     .contact { grid-template-columns: 1fr; }

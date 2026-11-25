@@ -3,6 +3,10 @@ export const WA_NUMBER = "905510865298";
 export const WA_DISPLAY = "+90 551 086 52 98";
 export const WA_LINK = `https://wa.me/${WA_NUMBER}`;
 
+/** Personal Telegram chat for requests (the channel below is read-only for visitors). */
+export const TG_USERNAME = "lanperor";
+export const TG_LINK = `https://t.me/${TG_USERNAME}`;
+
 /** Telegram channel, kept as a secondary social link. */
 export const TG_CHANNEL = "https://t.me/tryosfahri";
 
